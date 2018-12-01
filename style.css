@@ -115,3 +115,13 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+a.clickable-card,
+a.clickable-card:hover {
+    color: inherit;
+}
+
+a.clickable-card:hover {
+    background-color: grey;
+}
