@@ -36,7 +36,36 @@
     <div id="content" >
         <h1>Reception</h1>
     </div>
-
+    <div id="roomlist">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="checkout-tab" data-toggle="tab" href="#checkout" role="tab" aria-controls="home" aria-selected="true">Check Out</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="checkin-tab" data-toggle="tab" href="#checkin" role="tab" aria-controls="profile" aria-selected="false">Check In</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <a class="btn btn-light" onclick="refreshCheckOut()">Refresh</a>
+            <div class="tab-pane fade show active" id="checkout" role="tabpanel" aria-labelledby="checkout-tab">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                <table class="table" id="checkout-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Booking Number</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Checkin Date</th>
+                        <th scope="col">Checkout Date</th>
+                        <th scope="col">Checkout Date</th>
+                    </tr>
+                    </thead>
+                    <tbody id="checkout-body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="checkin" role="tabpanel" aria-labelledby="checkin-tab">...</div>
+        </div>
+    </div>
 
     <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
@@ -44,5 +73,8 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- Main -->
     <script src="js/main.js"></script>
+
+
+<script src="js/reception.js"></script>
     </body>
 </html>
