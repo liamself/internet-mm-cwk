@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway:300,400');
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+h1 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+}
+.topnav {
+    background-color: lightgrey;
+    overflow:hidden;
+}
+
+.topnav ul {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.topnav li {
+    font-size: large;
+    line-height: 40px;
+    height: 40px;
+
+
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+}
+
+.topnav a {
+    color:black;
+    display:block;
+    text-decoration: none;
+    transition: .3s background-color;
+    padding: 5px
+}
+
+.topnav a:hover {
+    background-color: cornsilk;
+}
+
+.topnav a:active {
+    background-color: cornsilk;
+}
+
+/* Hide hamburger button */
+.topnav li.nav-icon {
+    display: none;
+}
+
+/* Mobile and small screens */
+@media screen and (max-width: 600px) {
+    /* Hide nav by default */
+    .topnav li {
+        display:none;
+    }
+
+    /* Show hamburger button */
+    .topnav li.nav-icon {
+        display: block;
+        float:right;
+    }
+
+    .topnav li {
+        width: 50px;
+        border-bottom: none;
+        height: 50px;
+        line-height: 40px;
+        font-size: large;
+        text-align: center;
+    }
+
+    .nav-mobile {
+        position:relative;
+    }
+
+    .nav-mobile li{
+        float:none;
+        display: block;
+    }
+    .nav-mobile a.nav-icon {
+        position: absolute;
+        right:0;
+        top:0;
+    }
+    .nav-mobile a {
+        float:none;
+        display: block;
+    }
+
+}
+
+#booking-form-container {
+    position: relative;
+    text-align: center;
+    max-width:100%;
+}
+
+#booking-form-img {
+    max-width:100%;
+    height:auto;
+}
+
+#form-overlay {
+    background-color: rgba(210,210,210,0.9);
+    position: absolute;
+    width: 75%;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

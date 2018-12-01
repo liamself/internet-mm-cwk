@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Welcome | Bishy Barnaby Hotel</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img id="hotel-logo" src="img/logo_horizontal.png"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<img src="img/hotel.jpeg"  id="bannerimg" class="img-responsive" alt="Bishy Barnarby Hotel">
+<div class="container-fluid" id="form-container-outer">
+    <!-- Desktop form -->
+    <div class="d-none d-sm-block">
+        <div id="form-div" class="container-fluid">
+            <form id="booking-form">
+                <div class="form-group">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                Arrival Date <input type="date" id="arrive" size="20">
+                            </div>
+                            <div class="col-sm">
+                                Departure Date <input type ="date" id="departure" size="20">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <h5>Double Standard</h5>
+                                <select size="1" id="DStno">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <h5>Double Superior</h5>
+                                <select size="1" id="DSuno">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <h5>Twin Standard</h5>
+                                <select size="1" id="TStno">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <h5>Twin Superior</h5>
+                                <select size="1" id="TSuno">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('res')">
+                            </div><div class="col-sm">
+                            <input type="reset" value="Reset" class="btn" id="reset_button">
+                        </div><div class="col-sm">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+   <!-- Mobile form -->
+    <div class="d-block d-sm-none">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Book now
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="form-div-mob" class="container-fluid">
+                            <form id="booking-form-mob">
+                                <div class="form-group">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                Arrival Date <input type="date" id="arrive-mob" size="20">
+                                            </div>
+                                            <div class="col-sm">
+                                                Departure Date <input type ="date" id="departure-mob" size="20">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <h5>Double Standard</h5>
+                                                <select size="1" id="DStno-mob">
+                                                    <option value="0" selected>0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm">
+                                                <h5>Double Superior</h5>
+                                                <select size="1" id="DSuno-mob">
+                                                    <option value="0" selected>0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm">
+                                                <h5>Twin Standard</h5>
+                                                <select size="1" id="TStno-mob">
+                                                    <option value="0" selected>0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm">
+                                                <h5>Twin Superior</h5>
+                                                <select size="1" id="TSuno-mob">
+                                                    <option value="0" selected>0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <input type="button" value="Check Availability" class="btn" id="submit_button-mob" onclick="postBookingDetails('res')">
+                                            </div>
+                                            <div class="col-sm">
+                                                <input type="reset" value="Reset" class="btn" id="reset_button-mob">
+                                            </div>
+                                            <div class="col-sm">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Hoten info -->
+<h1>A lovely title about hotels and stuff</h1>
+
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius erat eget est blandit consectetur. Pellentesque ante lacus, viverra vitae lorem elementum, aliquam feugiat mauris. Mauris in dui nec dolor placerat viverra. Curabitur mattis erat metus, sit amet tristique dui volutpat sit amet. Etiam posuere augue ac ultrices aliquam. Quisque auctor dignissim nunc, id sollicitudin turpis hendrerit eu. Aliquam varius, neque vehicula ullamcorper volutpat, ipsum libero lobortis sem, ac dignissim elit lacus ac erat. Nullam tincidunt felis mauris, at placerat dolor tincidunt eu. Donec tristique in erat ac rutrum. Suspendisse aliquam odio ut lectus luctus, et tempus justo scelerisque. Aenean sit amet ultricies tellus, eu venenatis metus. Mauris ornare mattis risus non ultrices. Maecenas suscipit ex augue, vel congue massa posuere ac. Nam sollicitudin pulvinar aliquet. Donec est dui, convallis et ex nec, suscipit sodales nisl.
+</p>
+<p>
+    Nulla ultricies eget velit nec consectetur. Cras eu pulvinar massa, a euismod lorem. Nulla a bibendum leo. Maecenas eu pretium ipsum. Pellentesque porta ex erat. Vestibulum fermentum, mauris sed laoreet vehicula, augue nisl pulvinar est, ac condimentum erat arcu at lectus. Donec interdum vulputate quam, posuere iaculis purus sagittis a. Donec tincidunt viverra augue ac mollis. Integer facilisis tincidunt dictum. Donec ullamcorper magna a diam facilisis, quis vehicula justo porta. Aenean vitae mi eget mi molestie consequat at in quam. Ut in nibh ornare, dictum felis id, ullamcorper lorem. Donec sit amet dolor vitae diam efficitur egestas. Nam lobortis dui vel orci sodales interdum. Donec sit amet neque posuere, mollis metus vel, dignissim nibh. Quisque neque sem, interdum nec tellus a, porta ultrices lacus.
+</p>
+<p>
+    Donec rutrum facilisis ullamcorper. Morbi in risus venenatis, iaculis sapien ut, facilisis mi. Mauris vehicula semper porttitor. Curabitur bibendum dui et mi egestas, ac ultricies orci elementum. Curabitur sit amet imperdiet odio. Nam convallis, libero et dictum laoreet, leo eros pulvinar magna, nec rhoncus libero erat at leo.
+
+</p>
+<p>
+    Maecenas sed purus id turpis interdum lobortis ac id eros. Nullam velit odio, imperdiet vel velit nec, condimentum euismod mi. Sed pellentesque turpis at ex gravida, sit amet maximus ipsum accumsan. Maecenas sit amet tincidunt risus, in imperdiet magna. Proin vestibulum pellentesque leo sit amet gravida. Duis at elementum ipsum. Fusce eget arcu luctus, elementum libero eget, tincidunt felis. Cras vel massa sagittis, volutpat eros eu, ultricies tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+</p>
+
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Main -->
+<script src="js/main.js"></script>
+</body>
+</html>
