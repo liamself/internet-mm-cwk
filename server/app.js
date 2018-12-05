@@ -50,6 +50,43 @@ var app = http.createServer(function (req, res) {
                 });
             }
             break;
+        case '/get_checkin_bookings':
+            if (req.method === 'POST') {
+                console.log("POST");
+                var body = '';
+                req.on('data', function (data) {
+                    body += data;
+                    console.log("Partial body: " + body);
+                });
+                req.on('end', async function () {
+
+                    const {Client} = require('pg');
+                    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
+
+                    const client = new Client({
+                        connectionString: connectionString,
+                    });
+                    await client.connect(); // create a database connection
+                    await client.query("SET search_path TO 'hotelbooking';");
+
+                    // the below is an insertion SQL command template
+                    const text = 'SELECT DISTINCT ON(roombooking.b_ref) roombooking.b_ref, customer.c_name, roombooking.checkin, roombooking.checkout FROM room, roombooking, booking, customer \n' +
+                        '\tWHERE \troom.r_no=roombooking.r_no \n' +
+                        '\t\tAND roombooking.b_ref=booking.b_ref\n' +
+                        '\t\tAND\tbooking.c_no=customer.c_no\n' +
+                        '\t\tAND room.r_status=\'A\'\n' +
+                        '\t\tAND roombooking.checkin <= now()\n' +
+                        '\t\tAND roombooking.checkout >=now();';
+                    const res1 = await client.query(text);
+                    await client.end();
+                    json = res1.rows;
+                    var json_str_new = JSON.stringify(json);
+
+                    //console.log(json_str_new);
+                    res.end(json_str_new);
+                });
+            }
+            break;
         case '/get_form':
             if (req.method == 'POST') {
                 console.log("POST");
@@ -86,7 +123,77 @@ var app = http.createServer(function (req, res) {
                     console.log(json_str_new);
                     res.end(json_str_new);
                 });
+            }
+            break;
+        case '/get_rooms':
+            if (req.method === 'POST') {
+                console.log("POST");
+                var body = '';
+                req.on('data', function (data) {
+                    body += data;
+                    console.log("Partial body: " + body);
+                });
+                req.on('end', async function () {
 
+                    const {Client} = require('pg');
+                    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
+
+                    const client = new Client({
+                        connectionString: connectionString,
+                    });
+                    await client.connect(); // create a database connection
+                    await client.query("SET search_path TO 'hotelbooking';");
+
+                    // the below is an insertion SQL command template
+                    const text = 'SELECT * FROM hotelbooking.room ORDER BY r_no;';
+                    const res1 = await client.query(text);
+                    await client.end();
+                    json = res1.rows;
+                    var json_str_new = JSON.stringify(json);
+
+                    //console.log(json_str_new);
+                    res.end(json_str_new);
+                });
+            }
+            break;
+
+        case '/change_status':
+            if (req.method === 'POST') {
+                console.log("POST");
+                var body = '';
+                req.on('data', function (data) {
+                    body += data;
+                    console.log("Partial body: " + body);
+                });
+                req.on('end', async function () {
+                    console.log("Changing room  " + body);
+                    var json = JSON.parse(body);
+                    //console.log(json);
+                    var roomId = json.roomID;
+                    var status = json.status;
+
+                    const {Client} = require('pg');
+                    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
+
+                    const client = new Client({
+                        connectionString: connectionString,
+                    });
+                    await client.connect(); // create a database connection
+
+                    const text = "UPDATE hotelbooking.room SET r_status = $1 WHERE r_no = $2 RETURNING *;";
+                    const values = [status, roomId];
+
+                    // here we execute the data insertion command
+                    const res1 = await client.query(text, values);
+
+
+                    await client.end();
+                    console.log(res1);
+                    json = res1.rows;
+                    var json_str_new = JSON.stringify(json);
+                    console.log(json_str_new);
+                    res.end(json_str_new);
+                });
             }
             break;
         default:
@@ -95,6 +202,28 @@ var app = http.createServer(function (req, res) {
             res.end('error');
     }
 });
+
+async function checkInRoom(roomID) {
+    const {Client} = require('pg');
+    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
+
+    const client = new Client({
+        connectionString: connectionString,
+    });
+    await client.connect(); // create a database connection
+    await client.query("SET search_path TO 'hotelbooking';");
+
+    // the below is an insertion SQL command template
+    const text = 'SELECT * FROM hotelbooking.room;';
+    const res1 = await client.query(text);
+    await client.end();
+    json = res1.rows;
+    var json_str_new = JSON.stringify(json);
+    return json_str_new;
+}
+
+
+
 var server = app.listen(8081, function () {
     var host = server.address().address;
     var port = server.address().port;
