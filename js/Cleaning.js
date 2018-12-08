@@ -22,6 +22,13 @@ function housekeepingRefresh() {
                 //row.append($("<td/>").text(roomClassToString(r.r_class)));
                 row.append($("<td/>").text(r.r_status));
 
+
+                if (r.r_status === 'C') {
+                    row.addClass("table-warning");
+                } else if (r.r_status === 'X') {
+                    row.addClass('table-danger');
+                }
+
                 var roomBtnDisabled = r.r_status !== 'C';
                 var roomBtn = $('<button />', {
                     class: 'btn btn-light',
@@ -102,34 +109,4 @@ function roomClassToString(status) {
         default:
             return status;
     }
-}
-
-function refreshCheckIn() {
-    $.ajax({
-        url: "http://127.0.0.1:8081/get_checkin_bookings",
-        type: "POST",
-        data: "",
-        success: function(rt) {
-            var json = JSON.parse(rt); // the returned data will be an array
-            //Clear table
-            var table = $("#checkin-body");
-            //Populate with new data
-            table.empty();
-            $.each(json, function(rowIndex, r) {
-                var row = $("<tr/>");
-                $.each(r, function(colIndex, c) {
-                    row.append($("<td/>").text(c));
-                });
-                row.append($("<td/>")
-                    .append($('<a />', {
-                        class: 'btn btn-light',
-                        text: "Check in"
-                    })));
-                table.append(row);
-            });
-        },
-        error: function(err){
-            alert(err.message);
-        }
-    });
 }
