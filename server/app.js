@@ -135,6 +135,7 @@ var app = http.createServer(function (req, res) {
                     // Availability Room Finder
                     if (json.DStno <= check_1 && json.DSuno <= check_2 && json.TStno <= check_3 && json.TSuno <= check_4){
                         console.log("First If");
+                        res.statusCode=500;
                         res.end();
                         //response.writeHead(302, { 'Location': '/booking.html'});
                         //response.end();
@@ -143,7 +144,9 @@ var app = http.createServer(function (req, res) {
                     }
                     else
                     {	// Add a comment that rooms are unavailable for the selected dates - rooms available or select other dates
-                        res.end("Sorry, we don't have any rooms matching your requirements! We have the following options available for your requested days: \n Standard Double: " + check_1 + " rooms available. \n Superior Double: " + check_2 + " rooms available. \n Standard Twin: " + check_3 + " rooms available. \n Superior Twin: " + check_4 + " rooms available. \n Please ammend your booking above by changing either room type or the dates of your booking.");
+                        res.statusCode=500;
+                        res.statusMessage = "Sorry, we don't have any rooms matching your requirements! We have the following options available for your requested days: \n Standard Double: " + check_1 + " rooms available. \n Superior Double: " + check_2 + " rooms available. \n Standard Twin: " + check_3 + " rooms available. \n Superior Twin: " + check_4 + " rooms available. \n Please ammend your booking above by changing either room type or the dates of your booking.";
+                        res.end();
                     }
 
                     await client.end();

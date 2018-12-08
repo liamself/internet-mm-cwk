@@ -40,12 +40,13 @@ function post(path, data, disp_id) {
         type: "POST",
         data: json,
         success: function(rt) {
+
             console.log(rt); // returned data
             $('#'+disp_id).html(rt);
             window.location.href="booking.html";
         },
-        error: function(){
-            alert("error");
+        error: function(error){
+            alert(error.statusMessage);
         }
     });
 };
