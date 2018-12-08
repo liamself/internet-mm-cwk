@@ -248,13 +248,14 @@ var app = http.createServer(function (req, res) {
 
 
                         //Booking Reference
-                        var bookingref;
+                        var bookingref = "";
                         var booking_ref = await client.query('SELECT MAX(b_ref)+1 as ref from hotelbooking.booking');
                         const booking_rows = booking_ref.rows;
                         for (let i = 0; i < booking_rows.length; i++) {
                             console.log('Booking Ref: ' + booking_rows[i].ref);
                             bookingref = booking_rows[i].ref;
                         }
+                        console.log("BOOKING REF IS " + bookingref);
 
                         var customerno;
                         var customer_no = await client.query('SELECT MAX(c_no)+1 as cno from hotelbooking.customer');
@@ -358,10 +359,9 @@ var app = http.createServer(function (req, res) {
                         }
 
                     }
-                    res.end();
-
-
                     await client.end();
+                    console.log("Ending with ref " + bookingref);
+                    res.end(bookingref.toString());
 
                 });
             }

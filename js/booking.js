@@ -45,6 +45,7 @@ function post(path, data, disp_id) {
             console.log(rt); // returned data
             $('#'+disp_id).html(rt);
             setObject("confirmation", data);
+            setObject("bookingRef", rt);
             window.location.href=("confirmation.html");
         },
         error: function(){

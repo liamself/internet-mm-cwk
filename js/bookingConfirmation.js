@@ -1,4 +1,5 @@
 $(document).ready(function() {
     var data = getObject("confirmation");
-    console.log("woo");
+    var ref = getObject("bookingRef");
+    $("#bRef").text(ref);
 });
