@@ -7,50 +7,29 @@ process.on('uncaughtException', function (err) {
 });
 
 var app = http.createServer(function (req, res) {
-    console.log(req.url)
-    console.log(req.method)
+    console.log(req.url);
+    console.log(req.method);
 
     // Website you wish to allow to connect
     // add this line to address the cross-domain XHR issue.
     res.setHeader('Access-Control-Allow-Origin', '*');
 
+
     switch (req.url) {
-        case '/get_checkout_bookings':
+        case '/admin_booking_details':
+            var body = '';
             if (req.method === 'POST') {
-                console.log("POST");
-                var body = '';
                 req.on('data', function (data) {
                     body += data;
                     console.log("Partial body: " + body);
-                });
-                req.on('end', async function () {
-
-                    const {Client} = require('pg');
-                    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
-                    const client = new Client({
-                        connectionString: connectionString,
-                    });
-                    await client.connect(); // create a database connection
-                    await client.query("SET search_path TO 'hotelbooking';");
-
-                    // the below is an insertion SQL command template
-                    const text = 'SELECT DISTINCT ON(roombooking.b_ref) roombooking.b_ref, customer.c_name, roombooking.checkin, roombooking.checkout FROM room, roombooking, booking, customer \n' +
-                        '\tWHERE \troom.r_no=roombooking.r_no \n' +
-                        '\t\tAND roombooking.b_ref=booking.b_ref\n' +
-                        '\t\tAND\tbooking.c_no=customer.c_no\n' +
-                        '\t\tAND room.r_status=\'C\';';
-                    const res1 = await client.query(text);
-                    await client.end();
-                    json = res1.rows;
-                    var json_str_new = JSON.stringify(json);
-
-                    //console.log(json_str_new);
-                    res.end(json_str_new);
+                }).on('end', async function () {
+                    var json = JSON.parse(body);
+                    var result = await getBookingDetails(json.bref);
+                    res.end(result);
                 });
             }
             break;
-        case '/get_checkin_bookings':
+        case '/get_current_bookings': //Gets a list of all bookings with a checkout date after (or equal to) current day
             if (req.method === 'POST') {
                 console.log("POST");
                 var body = '';
@@ -69,20 +48,17 @@ var app = http.createServer(function (req, res) {
                     await client.connect(); // create a database connection
                     await client.query("SET search_path TO 'hotelbooking';");
 
-                    // the below is an insertion SQL command template
-                    const text = 'SELECT DISTINCT ON(roombooking.b_ref) roombooking.b_ref, customer.c_name, roombooking.checkin, roombooking.checkout FROM room, roombooking, booking, customer \n' +
-                        '\tWHERE \troom.r_no=roombooking.r_no \n' +
-                        '\t\tAND roombooking.b_ref=booking.b_ref\n' +
-                        '\t\tAND\tbooking.c_no=customer.c_no\n' +
-                        '\t\tAND room.r_status=\'A\'\n' +
-                        '\t\tAND roombooking.checkin <= now()\n' +
-                        '\t\tAND roombooking.checkout >=now();';
+                    const text = 'SELECT * FROM(SELECT DISTINCT ON (roombooking.b_ref) roombooking.b_ref, customer.c_name, roombooking.checkin, roombooking.checkout FROM roombooking, booking, customer\n' +
+                        'WHERE roombooking.b_ref=booking.b_ref AND customer.c_no=booking.c_no\n' +
+                        'AND roombooking.checkout >= NOW()\n' +
+                        'ORDER BY roombooking.b_ref) bookings ORDER BY checkout;';
                     const res1 = await client.query(text);
+                    console.log("Query finished");
+                    console.log(res1);
                     await client.end();
-                    json = res1.rows;
+                    var json = res1.rows;
                     var json_str_new = JSON.stringify(json);
 
-                    //console.log(json_str_new);
                     res.end(json_str_new);
                 });
             }
@@ -97,8 +73,8 @@ var app = http.createServer(function (req, res) {
                 });
                 req.on('end', async function () {
                     console.log("Body: " + body);
-                    var json = JSON.parse(body)
-                    console.log("name is " + json.studentName) // get name
+                    var json = JSON.parse(body);
+                    console.log("name is " + json.studentName); // get name
 
                     const {Client} = require('pg');
                     const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
@@ -216,6 +192,30 @@ async function checkInRoom(roomID) {
     // the below is an insertion SQL command template
     const text = 'SELECT * FROM hotelbooking.room;';
     const res1 = await client.query(text);
+    await client.end();
+    json = res1.rows;
+    var json_str_new = JSON.stringify(json);
+    return json_str_new;
+}
+
+async function getBookingDetails(bRef) {
+    console.log("Entered inner");
+    const {Client} = require('pg');
+    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
+
+    const client = new Client({
+        connectionString: connectionString,
+    });
+    await client.connect(); // create a database connection
+    await client.query("SET search_path TO 'hotelbooking';");
+    var query = "SELECT room.r_no, r_class, r_status, r_notes, c_name, checkin, checkout, booking.b_ref, b_cost, b_outstanding FROM room \n" +
+        "JOIN roombooking ON room.r_no=roombooking.r_no\n" +
+        "JOIN booking ON roombooking.b_ref=booking.b_ref\n" +
+        "JOIN customer ON customer.c_no=booking.c_no\n" +
+        "WHERE booking.b_ref=" + bRef + ";";
+    console.log(query);
+    const res1 = await client.query(query);
+    console.log(res1);
     await client.end();
     json = res1.rows;
     var json_str_new = JSON.stringify(json);

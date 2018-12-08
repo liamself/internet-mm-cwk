@@ -10,7 +10,7 @@
     <title>Welcome | Bishy Barnaby Hotel</title>
 </head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index">
             <img id="hotel-logo" src="img/logo_horizontal.png"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,48 +36,21 @@
     <div id="content" >
         <h1>Reception</h1>
     </div>
-    <div id="roomlist">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="toom-tab" data-toggle="tab" href="#room" role="tab" aria-controls="home" aria-selected="true">Rooms</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="customers-tab" data-toggle="tab" href="#customers" role="tab" aria-controls="profile" aria-selected="false">Customers</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="room" role="tabpanel" aria-labelledby="room-tab">
-                <a class="btn btn-light" onclick="receptionRoomRefresh()">Refresh</a>
-                <table class="table" id="room-table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Room Number<th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Status</th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="room-body">
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="checkin" role="tabpanel" aria-labelledby="checkin-tab">
-                <a class="btn btn-light" onclick="refreshCheckIn()">Refresh</a>
-                <table class="table" id="checkin-table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Booking Number</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Checkin Date</th>
-                        <th scope="col">Checkout Date</th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="checkin-body">
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="container-fluid">
+        <a class="btn btn-light" onclick="receptionBookingRefresh()">Refresh</a>
+        <table class="table" id="booking-table">
+            <thead>
+            <tr>
+                <th scope="col">Booking Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">Checkin Date</th>
+                <th scope="col">Checkout Date</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody id="booking-body">
+            </tbody>
+        </table>
     </div>
 
     <!-- jQuery -->
@@ -85,9 +58,9 @@
     <!-- Bootstrap -->
     <script src="js/bootstrap.min.js"></script>
     <!-- Main -->
+    <script src="js/localstorage.js"></script>
     <script src="js/main.js"></script>
 
 
 <script src="js/reception.js"></script>
-    </body>
 </html>
