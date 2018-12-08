@@ -170,7 +170,7 @@ var app = http.createServer(function (req, res) {
                     await client.query("SET search_path TO 'hotelbooking';");
 
                     // the below is an insertion SQL command template
-                    const text = 'SELECT * FROM hotelbooking.room ORDER BY r_no;';
+                    const text = 'SELECT r_no, r_status FROM room ORDER BY r_no;';
                     const res1 = await client.query(text);
                     await client.end();
                     json = res1.rows;
@@ -366,7 +366,7 @@ var app = http.createServer(function (req, res) {
                 });
             }
             break;
-            case '/change_status':
+        case '/change_status':
             if (req.method === 'POST') {
                 console.log("POST");
                 var body = '';
