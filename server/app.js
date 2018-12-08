@@ -109,7 +109,7 @@ var app = http.createServer(function (req, res) {
 
 
                     var check_2;
-                    var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.arrive + "' AND checkout > '" + json.departure + "') AND r_class = 'sup_d'");
+                    var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.arrive + "' AND checkout <= '" + json.departure + "') AND r_class = 'sup_d'");
                     const check_2_rows = check2.rows;
 
                     for(let i = 0; i < check_2_rows.length; i++) {
@@ -117,7 +117,7 @@ var app = http.createServer(function (req, res) {
                     }
 
                     var check_3;
-                    var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.arrive + "' AND checkout > '" + json.departure + "') AND r_class = 'std_t'");
+                    var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.arrive + "' AND checkout <= '" + json.departure + "') AND r_class = 'std_t'");
                     const check_3_rows = check3.rows;
 
                     for(let i = 0; i < check_3_rows.length; i++) {
@@ -125,7 +125,7 @@ var app = http.createServer(function (req, res) {
                     }
 
                     var check_4;
-                    var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.arrive + "' AND checkout > '" + json.departure + "') AND r_class = 'sup_t'");
+                    var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.arrive + "' AND checkout <= '" + json.departure + "') AND r_class = 'sup_t'");
                     const check_4_rows = check4.rows;
 
                     for(let i = 0; i < check_4_rows.length; i++) {
@@ -209,7 +209,7 @@ var app = http.createServer(function (req, res) {
                     }
 
                     var check_2;
-                    var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.availabilityData.arrive + "' AND checkout > '" + json.availabilityData.departure + "') AND r_class = 'sup_d'");
+                    var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.availabilityData.arrive + "' AND checkout <= '" + json.availabilityData.departure + "') AND r_class = 'sup_d'");
 
                     const check_2_rows = check2.rows;
 
@@ -218,7 +218,7 @@ var app = http.createServer(function (req, res) {
                     }
 
                     var check_3;
-                    var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.availabilityData.arrive + "' AND checkout > '" + json.availabilityData.departure + "') AND r_class = 'std_t'");
+                    var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.availabilityData.arrive + "' AND checkout <= '" + json.availabilityData.departure + "') AND r_class = 'std_t'");
 
                     const check_3_rows = check3.rows;
 
@@ -227,7 +227,7 @@ var app = http.createServer(function (req, res) {
                     }
 
                     var check_4;
-                    var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.availabilityData.arrive + "' AND checkout > '" + json.availabilityData.departure + "') AND r_class = 'sup_t'");
+                    var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.availabilityData.arrive + "' AND checkout <= '" + json.availabilityData.departure + "') AND r_class = 'sup_t'");
 
                     const check_4_rows = check4.rows;
 
@@ -270,7 +270,7 @@ var app = http.createServer(function (req, res) {
 
                         if(json.availabilityData.DStno > 0){
 
-                            var roomtype_1_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.availabilityData.arrive + "' AND checkout > '" + json.availabilityData.departure + "') AND r_class = 'std_d' limit " + json.availabilityData.DStno;
+                            var roomtype_1_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.availabilityData.arrive + "' AND checkout <= '" + json.availabilityData.departure + "') AND r_class = 'std_d' limit " + json.availabilityData.DStno;
 
                             const room_type_1 = await client.query(roomtype_1_query);
                             const{rows} = room_type_1;
@@ -288,7 +288,7 @@ var app = http.createServer(function (req, res) {
 
                         if(json.availabilityData.DSuno > 0){
 
-                            var roomtype_2_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.availabilityData.arrive + "' AND checkout > '" + json.availabilityData.departure + "') AND r_class = 'sup_d' limit " + json.availabilityData.DSuno;
+                            var roomtype_2_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.availabilityData.arrive + "' AND checkout <= '" + json.availabilityData.departure + "') AND r_class = 'sup_d' limit " + json.availabilityData.DSuno;
 
                             const room_type_2 = await client.query(roomtype_2_query);
                             const{rows} = room_type_2;
@@ -306,7 +306,7 @@ var app = http.createServer(function (req, res) {
 
                         if(json.availabilityData.TStno > 0){
 
-                            var roomtype_3_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.availabilityData.arrive + "' AND checkout > '" + json.availabilityData.departure + "') AND r_class = 'std_t' limit " + json.availabilityData.TStno;
+                            var roomtype_3_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.availabilityData.arrive + "' AND checkout <= '" + json.availabilityData.departure + "') AND r_class = 'std_t' limit " + json.availabilityData.TStno;
 
                             const room_type_3 = await client.query(roomtype_3_query);
                             const{rows} = room_type_3;
@@ -324,7 +324,7 @@ var app = http.createServer(function (req, res) {
 
                         if(json.availabilityData.TSuno > 0){
 
-                            var roomtype_4_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin <= '" + json.availabilityData.arrive + "' AND checkout > '" + json.availabilityData.departure + "') AND r_class = 'sup_t' limit " + json.availabilityData.TSuno;
+                            var roomtype_4_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.availabilityData.arrive + "' AND checkout <= '" + json.availabilityData.departure + "') AND r_class = 'sup_t' limit " + json.availabilityData.TSuno;
 
                             const room_type_4 = await client.query(roomtype_4_query);
                             const{rows} = room_type_4;
