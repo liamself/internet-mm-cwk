@@ -51,6 +51,4 @@ function formatPage(rooms)
             table.append(row);
         });
     }
-
-
 }

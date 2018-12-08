@@ -16,6 +16,19 @@ var app = http.createServer(function (req, res) {
 
 
     switch (req.url) {
+        case '/admin_payment_details':
+            var body = '';
+            if (req.method === 'POST') {
+                req.on('data', function (data) {
+                    body += data;
+                    console.log("Partial body: " + body);
+                }).on('end', async function () {
+                    var json = JSON.parse(body);
+                    var result = await getPaymentDetails(json.bref);
+                    res.end(result);
+                });
+            }
+            break;
         case '/admin_booking_details':
             var body = '';
             if (req.method === 'POST') {
@@ -199,7 +212,6 @@ async function checkInRoom(roomID) {
 }
 
 async function getBookingDetails(bRef) {
-    console.log("Entered inner");
     const {Client} = require('pg');
     const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
 
@@ -222,7 +234,45 @@ async function getBookingDetails(bRef) {
     return json_str_new;
 }
 
+async function getPaymentDetails(bRef) {
+    const {Client} = require('pg');
+    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
 
+    const client = new Client({
+        connectionString: connectionString,
+    });
+    await client.connect(); // create a database connection
+    await client.query("SET search_path TO 'hotelbooking';");
+    var query = "SELECT customer.c_no, c_name, c_cardtype, c_cardexp, c_cardno, b_ref,  b_cost, b_outstanding\n" +
+        "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";";
+    console.log(query);
+    const res1 = await client.query(query);
+    console.log(res1);
+    await client.end();
+    json = res1.rows;
+    var json_str_new = JSON.stringify(json);
+    return json_str_new;
+}
+
+async function processPayment(bRef) {
+    const {Client} = require('pg');
+    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
+
+    const client = new Client({
+        connectionString: connectionString,
+    });
+    await client.connect(); // create a database connection
+    await client.query("SET search_path TO 'hotelbooking';");
+    var query = "SELECT customer.c_no, c_name, c_cardtype, c_cardexp, c_cardno, b_ref,  b_cost, b_outstanding\n" +
+        "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";";
+    console.log(query);
+    const res1 = await client.query(query);
+    console.log(res1);
+    await client.end();
+    json = res1.rows;
+    var json_str_new = JSON.stringify(json);
+    return json_str_new;
+}
 
 var server = app.listen(8081, function () {
     var host = server.address().address;
