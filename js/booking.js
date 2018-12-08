@@ -34,7 +34,6 @@ function postBookingDetails(disp_id){
 
 // submit data for storage using AJAX
 function post(path, data, disp_id) {
-
     // convert the parameters to a JSON data string
     var json = JSON.stringify(data);
 
@@ -45,6 +44,8 @@ function post(path, data, disp_id) {
         success: function(rt) {
             console.log(rt); // returned data
             $('#'+disp_id).html(rt);
+            setObject("confirmation", data);
+            window.location.href=("confirmation.html");
         },
         error: function(){
             alert("error");
@@ -57,7 +58,7 @@ function post(path, data, disp_id) {
 function showConfirmation(){
 	
 	$('#CustomerDetails').empty();
-	$('#CustomerDetails').append('Thank you for booking! Your Booking Reference is:');
+	$('#CustomerDetails').append('Thank you for booking! Your Booking Reference is ' + bRef);
 
 };
 

@@ -7,7 +7,7 @@
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Welcome | Bishy Barnaby Hotel</title>
+    <title>Booking Confirmation | Bishy Barnaby Hotel</title>
 </head>
 <body>
 
@@ -34,37 +34,13 @@
 </nav>
 
 <div id="content">
-
-
-    <h4>Order Summary</h4>
-    <p id="order"> </p>
-
-    <form name="CustomerDetails" id ="CustomerDetails">
-
-        <h4>Your Details</h4>
-        Name <input type="text" id="c_name" size="20" required>
-        Email <input type="email" id="c_email" size="20" required>
-        Address <input type="text" id="c_address" size="20" required>
-
-
-        <h4>Payment Details</h4>
-        <h5>Card Type</h5>
-        <select size="1" id="c_cardtype" required>
-            <option value="V">Visa</option>
-            <option value="MC">Master Card</option>
-            <option value="A">American Express</option>
-        </select>
-
-        Card Expiry <input type="text" id="c_cardexp" size="20" required>
-        Card Number <input type="number" id="c_cardno" size="20" required>
-
-        <br /><br />
-
-        <input class="btn btn-primary" type="button" value="Book My Stay" id="submit_button" onclick="postBookingDetails('res')" > <!--NOT SURE WHAT WE'LL BE CALLING THIS FUNCTION SO I'M LEAVING IT FOR NOW :D -->
-        <input type="reset" value="Reset" id="reset_button">
-
-    </form>
-
+    <h1>Your booking has been confirmed!</h1>
+    <h2>Here is a summary of your booking details</h2>
+    <p>Booking ref <span id="bRef"></span></p>
+    <p>Booking ref <span id="bRef"></span></p>
+    <p>Booking ref <span id="bRef"></span></p>
+    <p>Booking ref <span id="bRef"></span></p>
+    <p>Booking ref <span id="bRef"></span></p>
 </div>
 
 <!-- jQuery -->
@@ -73,7 +49,7 @@
 <script src="js/bootstrap.min.js"></script>
 <!-- Main -->
 <script src="js/localstorage.js"></script>
-<script src="js/booking.js"></script>
+<script src="js/bookingConfirmation.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

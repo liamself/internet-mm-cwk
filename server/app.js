@@ -358,6 +358,7 @@ var app = http.createServer(function (req, res) {
                         }
 
                     }
+                    res.end();
 
 
                     await client.end();
