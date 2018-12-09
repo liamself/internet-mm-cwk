@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Facilities | Bishy Barnaby Hotel</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index">
+        <img id="hotel-logo" src="img/logo_horizontal.png"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="content">
+    <img src="img/hotel.jpeg"  id="bannerimg" class="img-responsive" alt="Bcishy Barnarby Hotel">
+    <div class="container-fluid" id="form-container-outer">
+        <!-- Desktop form -->
+        <div class="d-none d-sm-block">
+            <div id="form-div" class="container-fluid">
+                <form id="booking-form">
+                    <div class="form-group">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    Arrival Date <input type="date" id="arrive" size="20">
+                                </div>
+                                <div class="col-sm">
+                                    Departure Date <input type ="date" id="departure" size="20">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Double Standard</h5>
+                                    <select size="1" id="DStno">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Double Superior</h5>
+                                    <select size="1" id="DSuno">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Twin Standard</h5>
+                                    <select size="1" id="TStno">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Twin Superior</h5>
+                                    <select size="1" id="TSuno">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('res')">
+                                </div><div class="col-sm">
+                                <input type="reset" value="Reset" class="btn" id="reset_button">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+       <!-- Mobile form -->
+        <div class="d-block d-sm-none">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Book now
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <div id="form-div-mob" class="container-fluid">
+                                <form id="booking-form-mob">
+                                    <div class="form-group">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    Arrival Date <input type="date" id="arrive-mob" size="20">
+                                                </div>
+                                                <div class="col-sm">
+                                                    Departure Date <input type ="date" id="departure-mob" size="20">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <h5>Double Standard</h5>
+                                                    <select size="1" id="DStno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <h5>Double Superior</h5>
+                                                    <select size="1" id="DSuno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <h5>Twin Standard</h5>
+                                                    <select size="1" id="TStno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <h5>Twin Superior</h5>
+                                                    <select size="1" id="TSuno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <input type="button" value="Check Availability" class="btn" id="submit_button-mob" onclick="postBookingDetails('res')">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <input type="reset" value="Reset" class="btn" id="reset_button-mob">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <p id="res"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Hoten info -->
+    <h1>Facilities</h1>
+
+    <p>
+		 The Bishee Barnabee Hotel boasts numerous facilities which are available to all guests. 
+   </p>
+    <p>
+		 For hungry guests, we have a restaurant available to cater for breakfast, lunch, and dinner, providing a range of delicious hot food guaranteed to satisfy all tastes. From midday onwards our bar is also open, serving a wide range of both alcoholic and non-alcoholic drinks, as well as a selection of snacks. Room service is also available for guests who fancy dining in the comfort of their own rooms.
+	</p>
+    <p>
+		 In the hotel guests can also find a state-of-the-art gym which is open 24-7. 
+    </p>
+	<p>
+		 For guests hosting functions and conferences, we also have 3 conference rooms available which can cater to parties of between 20 and 60 people. Whether you need to host an important meeting, a family reunion, or any other event our function rooms can provide the perfect location. We are located for easy travel from both national and international locations, and with on-site rooms and catering, we can truly provide for any event.    </p>
+	</p>
+	
+	
+	<img id = "facilitiesimg" src="img/bar.jpg" alt="Bar">
+	<br>
+	<img id = "facilitiesimg" src="img/gym.jpg" alt="Gym">
+	
+</div>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Main -->
+<script src="js/localstorage.js"></script>
+<script src="js/main.js"></script>
+<script src="js/availability.js"></script>
+</body>
+</html>
