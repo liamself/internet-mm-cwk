@@ -1,3 +1,20 @@
+$(document).ready(function() {
+	var bookingData = getObject('AvailabilityData');
+	$("#checkin").text(bookingData.arrive);
+	$("#checkout").text(bookingData.departure);
+	if (bookingData.DStno > 0) {
+		$('#stdD').text(bookingData.DStno);
+	} else $('#stdD-p').hide();
+	if (bookingData.DSuno > 0) {
+		$('#supD').text(bookingData.DSuno);
+	} else $('#supD-p').hide();
+	if (bookingData.TStno > 0) {
+		$('#stdT').text(bookingData.TStno);
+	} else $('#stdT-p').hide();
+	if (bookingData.TSuno > 0) {
+		$('#supT').text(bookingData.TSuno);
+	} else $('#supT-p').hide();
+});
 
 function saveBookingForm(){
 

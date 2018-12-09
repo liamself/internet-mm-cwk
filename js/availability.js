@@ -38,12 +38,10 @@ function post(path, data, disp_id) {
 			if (availability.roomsAvailable) {
 				window.location.href="booking.html";
 			}
-			else {
-
-			}
-            $('#'+disp_id).text("Unfortunately we cannot fulfil your request on these dates. Over the dates you have selected, the following rooms are available: " +
+			else { $('#'+disp_id).text("Unfortunately we cannot fulfil your request on these dates. Over the dates you have selected, the following rooms are available: " +
 				availability.stdD + " Double Standard, " + availability.supD + " Double Superior, " + availability.stdT + " Twin Standard, " + availability.supT + " Twin Superior.");
-        },
+			}
+           },
         error: function(error){
             alert(error.statusMessage);
         }
