@@ -77,7 +77,7 @@ var app = http.createServer(function (req, res) {
             }
             break;
         case '/get_form':
-            if (req.method == 'POST') {
+            if (req.method === 'POST') {
                 console.log("POST");
                 var body = '';
                 req.on('data', function (data) {
@@ -106,8 +106,6 @@ var app = http.createServer(function (req, res) {
                     for(let i = 0; i < check_1_rows.length; i++) {
                         check_1 = check_1_rows[i].count;
                     }
-
-
                     var check_2;
                     var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= '" + json.arrive + "' AND checkout <= '" + json.departure + "') AND r_class = 'sup_d'");
                     const check_2_rows = check2.rows;
@@ -132,21 +130,29 @@ var app = http.createServer(function (req, res) {
                         check_4 = check_4_rows[i].count;
                     }
 
+                    await client.end();
+                    var result;
                     // Availability Room Finder
                     if (json.DStno <= check_1 && json.DSuno <= check_2 && json.TStno <= check_3 && json.TSuno <= check_4){
-                        console.log("First If");
-                        res.end();
-                        //response.writeHead(302, { 'Location': '/booking.html'});
-                        //response.end();
-                        // auto redirect
-                        //Add an html link + comment = please click if not redirected in 10 seconds
+                        result = {
+                            roomsAvailable: true,
+                            stdD: check1.rows[0].count,
+                            supD: check2.rows[0].count,
+                            stdT: check3.rows[0].count,
+                            supT: check4.rows[0].count
+                        }
                     }
                     else
-                    {	// Add a comment that rooms are unavailable for the selected dates - rooms available or select other dates
-                        res.end("Sorry, we don't have any rooms matching your requirements! We have the following options available for your requested days: \n Standard Double: " + check_1 + " rooms available. \n Superior Double: " + check_2 + " rooms available. \n Standard Twin: " + check_3 + " rooms available. \n Superior Twin: " + check_4 + " rooms available. \n Please ammend your booking above by changing either room type or the dates of your booking.");
+                    {
+                        result = {
+                            roomsAvailable: false,
+                            stdD: check1.rows[0].count,
+                            supD: check2.rows[0].count,
+                            stdT: check3.rows[0].count,
+                            supT: check4.rows[0].count
+                        };
                     }
-
-                    await client.end();
+                    res.end(JSON.stringify(result));
                 });
             }
             break;
@@ -170,7 +176,7 @@ var app = http.createServer(function (req, res) {
                     await client.query("SET search_path TO 'hotelbooking';");
 
                     // the below is an insertion SQL command template
-                    const text = 'SELECT * FROM hotelbooking.room ORDER BY r_no;';
+                    const text = 'SELECT r_no, r_status FROM room ORDER BY r_no;';
                     const res1 = await client.query(text);
                     await client.end();
                     json = res1.rows;
@@ -248,13 +254,14 @@ var app = http.createServer(function (req, res) {
 
 
                         //Booking Reference
-                        var bookingref;
+                        var bookingref = "";
                         var booking_ref = await client.query('SELECT MAX(b_ref)+1 as ref from hotelbooking.booking');
                         const booking_rows = booking_ref.rows;
                         for (let i = 0; i < booking_rows.length; i++) {
                             console.log('Booking Ref: ' + booking_rows[i].ref);
                             bookingref = booking_rows[i].ref;
                         }
+                        console.log("BOOKING REF IS " + bookingref);
 
                         var customerno;
                         var customer_no = await client.query('SELECT MAX(c_no)+1 as cno from hotelbooking.customer');
@@ -358,15 +365,14 @@ var app = http.createServer(function (req, res) {
                         }
 
                     }
-                    res.end();
-
-
                     await client.end();
+                    console.log("Ending with ref " + bookingref);
+                    res.end(bookingref.toString());
 
                 });
             }
             break;
-            case '/change_status':
+        case '/change_status':
             if (req.method === 'POST') {
                 console.log("POST");
                 var body = '';

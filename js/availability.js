@@ -1,32 +1,24 @@
 function saveForm(){
+	var AvailabilityData = {
+		arrive :$('#arrive').val(),
+		departure: $('#departure').val(),
+		DStno: $('#DStno').val(),
+		DSuno: $('#DSuno').val(),
+		TStno: $('#TStno').val(),
+		TSuno: $('#TSuno').val()
+	};
 
-	var AvailabilityData = {}; 							
-	AvailabilityData.arrive = $('#arrive').val();
-	AvailabilityData.departure = $('#departure').val();
-	AvailabilityData.DStno = $('#DStno').val();
-	AvailabilityData.DSuno = $('#DSuno').val();	
-	AvailabilityData.TStno = $('#TStno').val();
-	AvailabilityData.TSuno = $('#TSuno').val();
-	
-	// check we're getting what we hope for
-	console.log('Arrive =', AvailabilityData.arrive);
-	console.log('Departure =', AvailabilityData.departure);
-	console.log('Number of Double Standard =', AvailabilityData.DStno);
-	console.log('Number of Double Superior =', AvailabilityData.DSuno);
-	console.log('Number of Twin Standard =', AvailabilityData.TStno);
-	console.log('Number of Twin Superior =', AvailabilityData.TSuno);
-	
 	setObject('AvailabilityData', AvailabilityData);    // store the data locally
 	//var storedData = getObject('AvailabilityData');		// retrieve data
 	//console.log('Arrival Date =', storedData.arrive);	// second check
-};
+}
 
 function postBookingDetails(disp_id){
 	var storedData;
-    saveForm(); // save the form again just in case
+    saveForm();
     storedData = getObject('AvailabilityData');
 	post('http://localhost:8081/get_form', storedData, disp_id);
-};
+}
 
 // submit data for storage using AJAX
 function post(path, data, disp_id) {
@@ -41,13 +33,19 @@ function post(path, data, disp_id) {
         data: json,
         success: function(rt) {
             console.log(rt); // returned data
-            $('#'+disp_id).html(rt);
-            window.location.href="booking.html";
-        },
-        error: function(){
-            alert("error");
+			var availability = JSON.parse(rt);
+			//Check if rooms were available
+			if (availability.roomsAvailable) {
+				window.location.href="booking.html";
+			}
+			else { $('#'+disp_id).text("Unfortunately we cannot fulfil your request on these dates. Over the dates you have selected, the following rooms are available: " +
+				availability.stdD + " Double Standard, " + availability.supD + " Double Superior, " + availability.stdT + " Twin Standard, " + availability.supT + " Twin Superior.");
+			}
+           },
+        error: function(error){
+            alert(error.statusMessage);
         }
     });
-};
+}
 
 

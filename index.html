@@ -13,7 +13,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index">
-        <img id="hotel-logo" src="img/logo_horizontal.png"/>
+        <img id="hotel-logo" src="img/logo_horizontal.png" alt="Bishy Barnabee Hotel logo"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
@@ -44,16 +44,18 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm">
-                                    Arrival Date <input type="date" id="arrive" size="20">
+                                    <label for="arrive" >Arrival</label>
+                                    <input type="date" id="arrive" class="form-control" size="20">
                                 </div>
                                 <div class="col-sm">
-                                    Departure Date <input type ="date" id="departure" size="20">
+                                    <label for="departure" >Departure</label>
+                                    <input type ="date" id="departure" class="form-control" size="20">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Double Standard</h5>
-                                    <select size="1" id="DStno">
+                                    <label for="DStno" >Double Standard</label>
+                                    <select size="1" id="DStno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -65,8 +67,8 @@
                                     </select>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Double Superior</h5>
-                                    <select size="1" id="DSuno">
+                                    <label for="DSuno" >Double Superior</label>
+                                    <select size="1" id="DSuno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -80,8 +82,8 @@
                                     </select>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Twin Standard</h5>
-                                    <select size="1" id="TStno">
+                                    <label for="TStno" >Twin Standard</label>
+                                    <select size="1" id="TStno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -93,8 +95,8 @@
                                     </select>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Twin Superior</h5>
-                                    <select size="1" id="TSuno">
+                                    <label for="TSuno" >Twin Superior</label>
+                                    <select size="1" id="TSuno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -108,17 +110,18 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm">
                                     <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('res')">
-                                </div><div class="col-sm">
-                                <input type="reset" value="Reset" class="btn" id="reset_button">
-                            </div>
+                                </div>
+                                <div class="col-sm">
+                                    <input type="reset" value="Reset" class="btn" id="reset_button">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
+                <p id="res"></p>
             </div>
         </div>
        <!-- Mobile form -->
@@ -208,7 +211,7 @@
 
                                             <div class="row">
                                                 <div class="col-sm">
-                                                    <input type="button" value="Check Availability" class="btn" id="submit_button-mob" onclick="postBookingDetails('res')">
+                                                    <input type="button" value="Check Availability" class="btn" id="submit_button-mob" onclick="postBookingDetails('res-mob')">
                                                 </div>
                                                 <div class="col-sm">
                                                     <input type="reset" value="Reset" class="btn" id="reset_button-mob">
@@ -217,7 +220,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <p id="res"></p>
+                                <p id="res-mob"></p>
                             </div>
                         </div>
                     </div>

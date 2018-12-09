@@ -9,57 +9,57 @@
 
     <title>Welcome | Bishy Barnaby Hotel</title>
 </head>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index">
-        <img id="hotel-logo" src="img/logo_horizontal.png"/>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact Us</a>
-            </li>
-        </ul>
+<body>>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index">
+            <img id="hotel-logo" src="img/logo_horizontal.png" alt="Bishy Barnabee Hotel logo"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="content">
+        <div class="container">
+            <a href="reception.html" class="btn btn-primary">Back</a>
+        </div>
+        <h1>Process Payment: booking <span id="booking-no"></span></h1>
+
+        <h2>Charges</h2>
+        <p>Current outstanding: £<span id="outstanding"></span></p>
+        <p><label for="extras">Additional services (food, drink etc) £</label><input type="number"  step=".01" id="extras"/></p>
+        <a class="btn btn-primary" onclick="updatePrice()">Update</a>
+        <p>Total Outstanding: £<span id="total"></span></p>
+
+        <h2>Payment Details</h2>
+        <p>Card No: <span id="cardno"></span></p>
+        <p>Card Expiry: <span id="cardexp"></span></p>
+        <p>Card Type: <span id="cardtype"></span></p>
+
+        <a class="btn btn-primary">Make Payment</a>
     </div>
-</nav>
-<div class="container">
-    <a href="reception.html" class="btn btn-primary">Back</a>
-</div>
-<div id="content" >
-    <h1>Process Payment: booking <span id="booking-no"></span></h1>
-
-    <h2>Charges</h2>
-    <p>Current outstanding: £<span id="outstanding"></span></p>
-    <p><label for="extras">Additional services (food, drink etc) £</label><input type="number" pattern="^\d+(?:\.\d{1,2})?$" step=".01" id="extras"/></p>
-    <a class="btn btn-primary" onclick="updatePrice()">Update</a>
-    <p>Total Outstanding: £<span id="total"></span></p>
-
-    <h2>Payment Details</h2>
-    <p>Card No: <span id="cardno"></span></p>
-    <p>Card Expiry: <span id="cardexp"></span></p>
-    <p>Card Type: <span id="cardtype"></span></p>
-
-    <a class="btn btn-primary">Make Payment</a>
-</div>
 
 
 
-<!-- jQuery -->
-<script src="js/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
-<!-- Main -->
-<script src="js/main.js"></script>
-
-
-<script src="js/localstorage.js"></script>
-<script src="js/receptionPayment.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Main -->
+    <script src="js/main.js"></script>
+    <script src="js/localstorage.js"></script>
+    <script src="js/receptionPayment.js"></script>
+</body>
 </html>

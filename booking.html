@@ -7,13 +7,13 @@
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Welcome | Bishy Barnaby Hotel</title>
+    <title>Booking Details | Bishy Barnaby Hotel</title>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index">
-        <img id="hotel-logo" src="img/logo_horizontal.png"/>
+        <img id="hotel-logo" src="img/logo_horizontal.png" alt="Bishy Barnaby Hotel logo"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index">Home</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
@@ -34,37 +34,71 @@
 </nav>
 
 <div id="content">
+    <div class="container"><h1>Booking</h1>
+        <h2>Good news, we have rooms available for you!</h2>
+        <h3>Please review your booking selection, and enter your details to complete your booking</h3>
+        <p id="order"> </p>
+
+        <h4>Order Summary</h4>
+        <p id="checkin-p">Check-in date: <span id="checkin"></span></>
+        <p id="checkout-p">Check-out date: <span id="checkout"></span></p>
+        <p id="stdD-p">Double Standard rooms: <span id="stdD"></span></p>
+        <p id="supD-p">Double Superior rooms: <span id="supD"></span></p>
+        <p id="stdT-p">Twin Standard rooms: <span id="stdT"></span></p>
+        <p id="supT-p">Twin Superior rooms: <span id="supT"></span></p>
+
+        <form name="CustomerDetails" id ="CustomerDetails">
+
+            <h4>Your Details</h4>
+            <div class="form-group row">
+                <label for="c_name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="c_name" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="c_email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="c_email" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="c_address" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-10">
+                    <textarea rows="4" class="form-control" id="c_address" required ></textarea>
+                </div>
+            </div>
 
 
-    <h4>Order Summary</h4>
-    <p id="order"> </p>
+            <h4>Payment Details</h4>
+            <div class="form-group row">
+                <label for="c_cardtype" class="col-sm-2 col-form-label">Card Type</label>
+                <div class="col-sm-10">
+                    <select id="c_cardtype" class="form-control">
+                        <option selected value="V">Visa</option>
+                        <option value="MC">Master Card</option>
+                        <option value="A">American Express</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="c_cardexp" class="col-sm-2 col-form-label">Expiry Date (MM/YY)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="c_cardexp" maxlength="5" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="c_cardno" class="col-sm-2 col-form-label">Card Number (without spaces)</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="c_cardno" required>
+                </div>
+            </div>
 
-    <form name="CustomerDetails" id ="CustomerDetails">
+            <input class="btn btn-primary" type="button" value="Book My Stay" id="submit_button" onclick="postBookingDetails('res')" > <!--NOT SURE WHAT WE'LL BE CALLING THIS FUNCTION SO I'M LEAVING IT FOR NOW :D -->
+            <input type="reset" value="Reset" id="reset_button">
 
-        <h4>Your Details</h4>
-        Name <input type="text" id="c_name" size="20" required>
-        Email <input type="email" id="c_email" size="20" required>
-        Address <input type="text" id="c_address" size="20" required>
-
-
-        <h4>Payment Details</h4>
-        <h5>Card Type</h5>
-        <select size="1" id="c_cardtype" required>
-            <option value="V">Visa</option>
-            <option value="MC">Master Card</option>
-            <option value="A">American Express</option>
-        </select>
-
-        Card Expiry <input type="text" id="c_cardexp" size="20" required>
-        Card Number <input type="number" id="c_cardno" size="20" required>
-
-        <br /><br />
-
-        <input class="btn btn-primary" type="button" value="Book My Stay" id="submit_button" onclick="postBookingDetails('res')" > <!--NOT SURE WHAT WE'LL BE CALLING THIS FUNCTION SO I'M LEAVING IT FOR NOW :D -->
-        <input type="reset" value="Reset" id="reset_button">
-
-    </form>
-
+        </form>
+    </div>
 </div>
 
 <!-- jQuery -->

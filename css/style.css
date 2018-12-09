@@ -24,6 +24,17 @@ h1 {
   text-align:center;
 }
 
+
+tr .needsCleaning {
+  background-color: black;
+}
+
+tr .unavailable {
+  background-color: red;
+}
+
+
+
 #facilitiesimg{
 	width: 500px;
 	height: 280;
@@ -31,3 +42,4 @@ h1 {
 	margin-left: auto;
 	margin-right: auto;
 }
+=======
