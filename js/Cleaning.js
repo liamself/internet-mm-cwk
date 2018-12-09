@@ -67,10 +67,6 @@ function housekeepingRefresh() {
     });
 }
 
-
-
-
-
 function changeStatus(roomId, status) {
     $.ajax({
         url: "http://127.0.0.1:8081/change_status",
