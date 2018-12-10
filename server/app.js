@@ -191,7 +191,6 @@ var app = http.createServer(function (req, res) {
             if (req.method === 'POST') {
                 var body = '';
                 req.on('data', function (data) {
-                    console.log('qwertyikol');
                     console.log(data);
                     body += data;
                     console.log("Partial body: " + body);
@@ -272,7 +271,7 @@ var app = http.createServer(function (req, res) {
                         }
 
                         const res1a = await client.query("INSERT INTO hotelbooking.customer(c_no, c_name, c_email, c_address, c_cardtype, c_cardexp, c_cardno) VALUES ( " + customerno + ", '" + json.bookingData.c_name + "', '" + json.bookingData.c_email + "', '" + json.bookingData.c_address + "', '" + json.bookingData.c_cardtype + "', '" + json.bookingData.c_cardexp + "', '" + json.bookingData.c_cardno + "')");
-                        const res1b = await client.query("INSERT INTO hotelbooking.booking(b_ref, c_no) VALUES(" + bookingref + ", " + customerno + ")");
+                        const res1b = await client.query("INSERT INTO hotelbooking.booking(b_ref, c_no, b_notes) VALUES(" + bookingref + ", " + customerno + ", '" + json.bookingData.b_notes + "')");
 
 
                         if(json.availabilityData.DStno > 0){

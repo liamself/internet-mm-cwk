@@ -27,6 +27,7 @@ function checkValidity(){
 		c_name: $('#c_name').val().trim(),
 		c_email: $('#c_email').val().trim(),
 		c_address: $('#c_address').val().trim(),
+		b_notes: $("#b_notes").val(),
 		c_cardtype: $('#c_cardtype').val().trim(),
 		c_cardexp: $('#c_cardexp').val().trim(),
 		c_cardno: $('#c_cardno').val().trim()

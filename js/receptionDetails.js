@@ -26,11 +26,13 @@ function formatPage(rooms)
         var bRef = rooms[0].b_ref;
         var price = rooms[0].b_cost;
         var outstanding = rooms[0].b_outstanding;
+        var notes = ""; //todo
 
         $("#booking-no").text(bRef);
         $("#booking-name").text(name);
         $("#booking-price").text(price);
         $("#booking-outstanding").text(outstanding);
+        $("#booking-notes").text(notes);
 
         var table = $("#room-body");
         //Populate with new data
