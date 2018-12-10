@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 function housekeepingRefresh() {
     $.ajax({
-        url: "http://127.0.0.1:55554/get_rooms",
+        url: "/get_rooms",
         type: "POST",
         data: "",
         success: function(rt) {
@@ -69,7 +69,7 @@ function housekeepingRefresh() {
 
 function changeStatus(roomId, status) {
     $.ajax({
-        url: "http://127.0.0.1:55554/change_status",
+        url: "/change_status",
         type: "POST",
         data: JSON.stringify({
             roomID: roomId,

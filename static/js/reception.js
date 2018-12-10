@@ -1,52 +1,11 @@
 $(document).ready(function(){
     receptionBookingRefresh();
 });
-/*
-function receptionRoomRefresh() {
-    $.ajax({
-        url: "http://127.0.0.1:8081/get_rooms",
-        type: "POST",
-        data: "",
-        success: function(rt) {
-            var json = JSON.parse(rt); // the returned data will be an array
-            //Clear table
-            $("#room-body").empty();
-            //Populate with new data
-            var table = $("#room-body");
-            $.each(json, function(rowIndex, r) {
-                var row = $("<tr/>");
-                row.append($("<td/>").text(r.r_no));
-                row.append($("<td/>").text(roomClassToString(r.r_class)));
-                row.append($("<td/>").text(r.r_status));
-
-                var btnDisabled = (r.r_status === 'X' || r.r_status === 'C');
-                var roomBtn = $('<button />', {
-                    class: 'btn btn-light'
-                });
-                roomBtn.prop('disabled', btnDisabled);
-                if (r.r_status === 'O') {
-                    roomBtn.text("Check Out");
-                    roomBtn.attr('onclick', 'onClickCheckOutRoom(' + r.r_no + ')');
-                } else {
-                    roomBtn.text("Check In");
-                    roomBtn.attr('onclick', 'onClickCheckInRoom(' + r.r_no + ')');
-                }
-
-                row.append($("<td/>")
-                    .append(roomBtn));
-                table.append(row);
-            });
-        },
-        error: function(err){
-            alert(err.message);
-        }
-    });
-}*/
 
 function receptionBookingRefresh()
 {
     $.ajax({
-        url: "http://127.0.0.1:55554/get_current_bookings",
+        url: "/get_current_bookings",
         type: "POST",
         data: "",
         success: function(rt) {
@@ -94,7 +53,7 @@ function onClickCheckInRoom(roomId) {
 
 function changeStatus(roomId, status) {
     $.ajax({
-        url: "http://127.0.0.1:8081/change_status",
+        url: "/change_status",
         type: "POST",
         data: JSON.stringify({
             roomID: roomId,
@@ -112,7 +71,7 @@ function changeStatus(roomId, status) {
 
 function refreshCheckIn() {
     $.ajax({
-        url: "http://127.0.0.1:55554/get_checkin_bookings",
+        url: "/get_checkin_bookings",
         type: "POST",
         data: "",
         success: function(rt) {

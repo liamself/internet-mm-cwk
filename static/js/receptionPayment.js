@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 function getPaymentDetails(bRef) {
     $.ajax({
-        url: "http://127.0.0.1:55554/admin_payment_details",
+        url: "/admin_payment_details",
         type: "POST",
         data: JSON.stringify({
             bref: bRef

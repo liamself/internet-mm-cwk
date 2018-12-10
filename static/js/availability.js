@@ -44,7 +44,7 @@ function postBookingDetails(disp_id){
 	var storedData;
     saveForm();
     storedData = getObject('AvailabilityData');
-	post('http://localhost:55554/get_form', storedData, disp_id);
+	post('/get_form', storedData, disp_id);
 }
 
 // submit data for storage using AJAX

@@ -64,7 +64,7 @@ function postBookingDetails(disp_id){
 		var storedAvailabilityData = getObject('AvailabilityData');
 		storedBookingData = getObject('BookingData');
 		var allData = {availabilityData: storedAvailabilityData, bookingData: storedBookingData};
-		post('http://localhost:55554/get_booking', allData, disp_id);
+		post('/get_booking', allData, disp_id);
 	}
 }
 
