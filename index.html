@@ -44,12 +44,12 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm">
-                                    <label for="arrive" >Arrival</label>
-                                    <input type="date" id="arrive" class="form-control" size="20">
+                                    <label for="arrive" >Arrival (DD/MM/YYYY)</label>
+                                    <input type="date" id="arrive" class="form-control" placeholder="DD/MM/YYYY" size="20">
                                 </div>
                                 <div class="col-sm">
-                                    <label for="departure" >Departure</label>
-                                    <input type ="date" id="departure" class="form-control" size="20">
+                                    <label for="departure" >Departure (DD/MM/YYYY)</label>
+                                    <input type ="date" id="departure" class="form-control" placeholder="DD/MM/YYYY"  size="20">
                                 </div>
                             </div>
                             <div class="row">
@@ -112,7 +112,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('res')">
+                                    <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('msg')">
                                 </div>
                                 <div class="col-sm">
                                     <input type="reset" value="Reset" class="btn" id="reset_button">
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                 </form>
-                <p id="res"></p>
+                <p id="msg"></p>
             </div>
         </div>
        <!-- Mobile form -->

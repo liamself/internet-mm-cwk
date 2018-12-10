@@ -14,6 +14,33 @@ function saveForm(){
 }
 
 function postBookingDetails(disp_id){
+	//Check all fields are populated
+
+
+	//Check validity of fields
+	var arrival = $('#arrive').val();
+	var departure = $('#departure').val();
+	if (arrival === "")
+	{
+		$('#'+disp_id).text("Please enter date of arrival");
+		return;
+	}
+	if (departure === "")
+	{
+		$('#'+disp_id).text("Please enter date of departure");
+		return;
+	}
+	if (arrival >= departure)
+	{
+		$('#'+disp_id).text("Arrival date must be earlier than departure");
+		return;
+	}
+	if ($('#DStno').val() + $('#DSuno').val() + $('#TStno').val() + $('#TSuno').val() < 1)
+	{
+		$('#'+disp_id).text("At least one room must be selected");
+		return;
+	}
+
 	var storedData;
     saveForm();
     storedData = getObject('AvailabilityData');
