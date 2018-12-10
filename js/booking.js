@@ -16,38 +16,56 @@ $(document).ready(function() {
 	} else $('#supT-p').hide();
 });
 
-function saveBookingForm(){
+function checkValidity(){
+	var cardError = $("#card-msg");
+	var customerError = $("#details-msg");
+	//Clear error messages
+	cardError.empty();
+	customerError.empty();
 
-	var BookingData = {}; 							
-	BookingData.c_name = $('#c_name').val();
-	BookingData.c_email = $('#c_email').val();
-	BookingData.c_address = $('#c_address').val();	
-	BookingData.c_cardtype = $('#c_cardtype').val();
-	BookingData.c_cardexp = $('#c_cardexp').val();
-	BookingData.c_cardno = $('#c_cardno').val();
-	
-	// check we're getting what we hope for
-	console.log('Customer Name =', BookingData.c_name);
-	console.log('Customer Email =', BookingData.c_email);
-	console.log('Customer Address =', BookingData.c_address);
-	// Delete once tested:
-	console.log('Card Type =', BookingData.c_cardtype);
-	console.log('Card Exp =', BookingData.c_cardexp);
-	console.log('Card Number =', BookingData.c_cardno);
-	
-	setObject('BookingData', BookingData);    // store the data locally
+	var bookingData = {
+		c_name: $('#c_name').val().trim(),
+		c_email: $('#c_email').val().trim(),
+		c_address: $('#c_address').val().trim(),
+		c_cardtype: $('#c_cardtype').val().trim(),
+		c_cardexp: $('#c_cardexp').val().trim(),
+		c_cardno: $('#c_cardno').val().trim()
+	};
+
+	//Check validity
+	var valid = true;
+	if (bookingData.c_name === "" || bookingData.c_email === "" || bookingData.c_address === "") {
+		customerError.text("Please fill in all fields and try again");
+		valid=false;
+	}
+
+
+	var expRegex = /(01|02|03|04|05|06|07|08|09|10|11|12)\/\d\d/;
+	if (bookingData.c_cardno === "" || bookingData.c_cardexp === "" || bookingData.c_cardtype === "") {
+		cardError.text("Please fill in all fields and try again");
+		valid=false;
+	} else if (! expRegex.test(bookingData.c_cardexp)) {
+		cardError.text("Expiry date should be in MM/YY format");
+		valid=false;
+	}
+
+
+
+	setObject('BookingData', bookingData);    // store the data locally
+	return valid;
 	//var storedBookingData = getObject('BookingData');		// retrieve data
 	//console.log('Booking Name =', storedBookingData.c_name);	// second check
-};
+}
 
 function postBookingDetails(disp_id){
 	var storedBookingData;
-    saveBookingForm(); // save the form again just in case
-	storedAvailabilityData = getObject('AvailabilityData');
-    storedBookingData = getObject('BookingData');
-	var allData = {availabilityData: storedAvailabilityData, bookingData:storedBookingData};
-	post('http://localhost:8081/get_booking', allData, disp_id);
-};
+    if (checkValidity()) { // save the form
+		var storedAvailabilityData = getObject('AvailabilityData');
+		storedBookingData = getObject('BookingData');
+		var allData = {availabilityData: storedAvailabilityData, bookingData: storedBookingData};
+		post('http://localhost:8081/get_booking', allData, disp_id);
+	}
+}
 
 // submit data for storage using AJAX
 function post(path, data, disp_id) {
@@ -69,7 +87,7 @@ function post(path, data, disp_id) {
             alert("error");
         }
     });
-};
+}
 
 //change to confirmation page
 
@@ -78,6 +96,6 @@ function showConfirmation(){
 	$('#CustomerDetails').empty();
 	$('#CustomerDetails').append('Thank you for booking! Your Booking Reference is ' + bRef);
 
-};
+}
 
 
