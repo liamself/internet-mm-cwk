@@ -48,8 +48,10 @@ payment = function() {
         var extra = parseFloat($("#extras").val());
 
         var total = outstanding + extra;
+        setObject("origPrice", outstanding);
+        setObject("extras", extra);
+        setObject("total", total);
         $("#total").text(total);
-
     }
 
     function processPayment() {
@@ -61,7 +63,7 @@ payment = function() {
                     bRef: bRef
                 }),
                 success: function (rt) {
-                    getPaymentDetails();
+                    window.location.href = "payment_confirmation.html";
                 },
                 error(msg) {
                     alert(msg);
