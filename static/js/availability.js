@@ -38,6 +38,10 @@ function validateBookingEnquiry(enquiry, disp_id) {
 		$('#'+disp_id).text("Please enter date of arrival");
 		return false;
 	}
+	if(Date.parse(enquiry.arrival) < Date.now()) {
+		$('#'+disp_id).text("Arrival date must be in the future");
+		return false;
+	}
 	if (enquiry.departure === "")
 	{
 		$('#'+disp_id).text("Please enter date of departure");
@@ -53,6 +57,7 @@ function validateBookingEnquiry(enquiry, disp_id) {
 		$('#'+disp_id).text("At least one room must be selected");
 		return false;
 	}
+
 	return true;
 }
 

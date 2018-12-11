@@ -131,7 +131,7 @@ expressApp.post('/get_form', function(req, res) {
 
         // Check Availability SQL Queries
         var check_1;
-        var check1 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_d'", [json.arrive, json.departure]);
+        var check1 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_d'", [json.arrival, json.departure]);
 
         const check_1_rows = check1.rows;
 
@@ -139,7 +139,7 @@ expressApp.post('/get_form', function(req, res) {
             check_1 = check_1_rows[i].count;
         }
         var check_2;
-        var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_d'", [json.arrive, json.departure]);
+        var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_d'", [json.arrival, json.departure]);
         const check_2_rows = check2.rows;
 
         for(let i = 0; i < check_2_rows.length; i++) {
@@ -147,7 +147,7 @@ expressApp.post('/get_form', function(req, res) {
         }
 
         var check_3;
-        var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_t'", [json.arrive, json.departure]);
+        var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_t'", [json.arrival, json.departure]);
         const check_3_rows = check3.rows;
 
         for(let i = 0; i < check_3_rows.length; i++) {
@@ -155,7 +155,7 @@ expressApp.post('/get_form', function(req, res) {
         }
 
         var check_4;
-        var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_t'", [json.arrive, json.departure]);
+        var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_t'", [json.arrival, json.departure]);
         const check_4_rows = check4.rows;
 
         for(let i = 0; i < check_4_rows.length; i++) {
