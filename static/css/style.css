@@ -48,6 +48,11 @@ h3 {
   text-align:center;
 }
 
+a {
+	color: black;
+	text-decoration: underline;
+}
+
 #galleryButtonP {
 	border-radius: 12px;
 	padding: 8px;
