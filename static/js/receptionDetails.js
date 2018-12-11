@@ -26,7 +26,7 @@ function formatPage(rooms)
         var bRef = rooms[0].b_ref;
         var price = rooms[0].b_cost;
         var outstanding = rooms[0].b_outstanding;
-        var notes = ""; //todo
+        var notes = rooms[0].b_notes; //todo
 
         $("#booking-no").text(bRef);
         $("#booking-name").text(name);

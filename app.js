@@ -12,11 +12,22 @@ process.on('uncaughtException', function (err) {
 
 
 expressApp.use(express.static('static', {index:false, extensions:['html']}));
+
+expressApp.use('/', express.static('static'));
 expressApp.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     next();
 });
 
+expressApp.post('/get_booking', function(req, res) {
+    var bRef = "";
+    req.on('data', function(data) {
+        bRef = data;
+    }).on('end', async function() {
+        var booking = await getBooking(bRef);
+        res.end(booking);
+    });
+});
 
 expressApp.post('/admin_payment_details', function(req, res) {
     var body = '';
@@ -49,28 +60,10 @@ expressApp.post('/get_current_bookings', function(req, res) {
         console.log("Partial body: " + body);
     });
     req.on('end', async function () {
-
-        const {Client} = require('pg');
-        const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
-        const client = new Client({
-            connectionString: connectionString,
-        });
-        await client.connect(); // create a database connection
-        await client.query("SET search_path TO 'hotelbooking';");
-
-        const text = 'SELECT * FROM(SELECT DISTINCT ON (roombooking.b_ref) roombooking.b_ref, customer.c_name, roombooking.checkin, roombooking.checkout FROM roombooking, booking, customer\n' +
+        res.end(await queryDB('SELECT * FROM(SELECT DISTINCT ON (roombooking.b_ref) roombooking.b_ref, customer.c_name, roombooking.checkin, roombooking.checkout FROM roombooking, booking, customer\n' +
             'WHERE roombooking.b_ref=booking.b_ref AND customer.c_no=booking.c_no\n' +
             'AND roombooking.checkout >= NOW()\n' +
-            'ORDER BY roombooking.b_ref) bookings ORDER BY checkout;';
-        const res1 = await client.query(text);
-        console.log("Query finished");
-        console.log(res1);
-        await client.end();
-        var json = res1.rows;
-        var json_str_new = JSON.stringify(json);
-
-        res.end(json_str_new);
+            'ORDER BY roombooking.b_ref) bookings ORDER BY checkout;'));
     });
 });
 expressApp.post('/get_form', function(req, res) {
@@ -157,28 +150,11 @@ expressApp.post('/get_rooms', function(req, res) {
         console.log("Partial body: " + body);
     });
     req.on('end', async function () {
-
-        const {Client} = require('pg');
-        const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
-        const client = new Client({
-            connectionString: connectionString,
-        });
-        await client.connect(); // create a database connection
-        await client.query("SET search_path TO 'hotelbooking';");
-
-        // the below is an insertion SQL command template
-        const text = 'SELECT r_no, r_status FROM room ORDER BY r_no;';
-        const res1 = await client.query(text);
-        await client.end();
-        json = res1.rows;
-        var json_str_new = JSON.stringify(json);
-
-        //console.log(json_str_new);
-        res.end(json_str_new);
+        res.end(await queryDB('SELECT r_no, r_status FROM room ORDER BY r_no;'));
     });
 });
 expressApp.post('/get_booking', function(req, res) {
+    var body = "";
     req.on('data', function (data) {
         console.log(data);
         body += data;
@@ -372,27 +348,11 @@ expressApp.post('/change_status', function(req, res) {
         var roomId = json.roomID;
         var status = json.status;
 
-        const {Client} = require('pg');
-        const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
-        const client = new Client({
-            connectionString: connectionString,
-        });
-        await client.connect(); // create a database connection
-
         const text = "UPDATE hotelbooking.room SET r_status = $1 WHERE r_no = $2 RETURNING *;";
         const values = [status, roomId];
 
         // here we execute the data insertion command
-        const res1 = await client.query(text, values);
-
-
-        await client.end();
-        console.log(res1);
-        json = res1.rows;
-        var json_str_new = JSON.stringify(json);
-        console.log(json_str_new);
-        res.end(json_str_new);
+        res.end(await queryDBWithValues(text, values));
     });
 });
 
@@ -400,83 +360,61 @@ expressApp.listen(port, () => console.log(`Example app listening on port ${port}
 
 
 async function checkInRoom(roomID) {
-    const {Client} = require('pg');
-    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
-    const client = new Client({
-        connectionString: connectionString,
-    });
-    await client.connect(); // create a database connection
-    await client.query("SET search_path TO 'hotelbooking';");
-
-    // the below is an insertion SQL command template
-    const text = 'SELECT * FROM hotelbooking.room;';
-    const res1 = await client.query(text);
-    await client.end();
-    json = res1.rows;
-    var json_str_new = JSON.stringify(json);
-    return json_str_new;
+    return await queryDB('SELECT * FROM hotelbooking.room;');
 }
 
 async function getBookingDetails(bRef) {
-    const {Client} = require('pg');
-    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
-    const client = new Client({
-        connectionString: connectionString,
-    });
-    await client.connect(); // create a database connection
-    await client.query("SET search_path TO 'hotelbooking';");
-    var query = "SELECT room.r_no, r_class, r_status, r_notes, c_name, checkin, checkout, booking.b_ref, b_cost, b_outstanding FROM room \n" +
+    return await queryDB("SELECT room.r_no, r_class, r_status, r_notes, c_name, checkin, checkout, booking.b_ref, b_cost, booking.b_notes, b_outstanding FROM room \n" +
         "JOIN roombooking ON room.r_no=roombooking.r_no\n" +
         "JOIN booking ON roombooking.b_ref=booking.b_ref\n" +
         "JOIN customer ON customer.c_no=booking.c_no\n" +
-        "WHERE booking.b_ref=" + bRef + ";";
-    console.log(query);
-    const res1 = await client.query(query);
-    console.log(res1);
-    await client.end();
-    json = res1.rows;
-    var json_str_new = JSON.stringify(json);
-    return json_str_new;
+        "WHERE booking.b_ref=" + bRef + ";");
 }
 
 async function getPaymentDetails(bRef) {
-    const {Client} = require('pg');
-    const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
-    const client = new Client({
-        connectionString: connectionString,
-    });
-    await client.connect(); // create a database connection
-    await client.query("SET search_path TO 'hotelbooking';");
-    var query = "SELECT customer.c_no, c_name, c_cardtype, c_cardexp, c_cardno, b_ref,  b_cost, b_outstanding\n" +
-        "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";";
-    console.log(query);
-    const res1 = await client.query(query);
-    console.log(res1);
-    await client.end();
-    json = res1.rows;
-    var json_str_new = JSON.stringify(json);
-    return json_str_new;
+    return await queryDB("SELECT customer.c_no, c_name, c_cardtype, c_cardexp, c_cardno, b_ref,  b_cost, b_outstanding\n" +
+        "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";");
 }
 
 async function processPayment(bRef) {
+    return await queryDB("SELECT customer.c_no, c_name, c_cardtype, c_cardexp, c_cardno, b_ref,  b_cost, b_outstanding\n" +
+        "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";");
+}
+
+async function getBooking(bRef) {
+    return await queryDB("SELECT * FROM booking WHERE b_ref='" + bRef + "';");
+}
+
+async function queryDB(query, client) {
+    var _client;
+    if (client == null) _client = await getConnection();
+    await _client.query("SET search_path TO 'hotelbooking';");
+    const result = await _client.query(query);
+    var rows = result.rows;
+    if (client === null) await _client.end();
+    return JSON.stringify(rows);
+}
+
+async function queryDBWithValues(query, values, client) {
+    var _client;
+    if (client == null) {
+        _client = await getConnection();
+    }
+    await _client.query("SET search_path TO 'hotelbooking';");
+    const result = await _client.query(query, values);
+    var rows = result.rows;
+    if (client === null) await _client.end();
+    return JSON.stringify(rows);
+}
+
+//Connects to the database and returns a client to process queries.
+//Client connection should be ended within each calling function.
+async function getConnection() {
     const {Client} = require('pg');
     const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
-
     const client = new Client({
         connectionString: connectionString,
     });
     await client.connect(); // create a database connection
-    await client.query("SET search_path TO 'hotelbooking';");
-    var query = "SELECT customer.c_no, c_name, c_cardtype, c_cardexp, c_cardno, b_ref,  b_cost, b_outstanding\n" +
-        "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";";
-    console.log(query);
-    const res1 = await client.query(query);
-    console.log(res1);
-    await client.end();
-    json = res1.rows;
-    var json_str_new = JSON.stringify(json);
-    return json_str_new;
+    return client;
 }
