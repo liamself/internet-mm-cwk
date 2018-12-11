@@ -411,7 +411,7 @@ async function checkOutRooms(bRef) {
     return await queryDB("UPDATE room SET r_status = 'C' WHERE r_no IN (SELECT r_no FROM roombooking WHERE b_ref = " + bRef + " AND r_status = 'O');");
 }
 async function checkInRooms(bRef) {
-    return await queryDB("UPDATE room SET r_status = 'O' WHERE r_no IN (SELECT r_no FROM roombooking WHERE b_ref = " + bRef + " AND r_status = 'A');");
+    return await queryDBWithValues("UPDATE room SET r_status = 'O' WHERE r_no IN (SELECT r_no FROM roombooking WHERE b_ref = $1 AND r_status = 'A');", [bRef]);
 }
 
 async function queryDB(query, client) {
