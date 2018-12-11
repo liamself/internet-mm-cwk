@@ -1,51 +1,68 @@
-function saveForm(){
-	var AvailabilityData = {
-		arrive :$('#arrive').val(),
+function saveForm(enquiry){
+	setObject('AvailabilityData', enquiry);    // store the data locally
+	//var storedData = getObject('AvailabilityData');		// retrieve data
+	//console.log('Arrival Date =', storedData.arrive);	// second check
+}
+
+function onSubmitBookingForm() {
+	var enquiry = {
+		arrival: $('#arrive').val(),
 		departure: $('#departure').val(),
 		DStno: $('#DStno').val(),
 		DSuno: $('#DSuno').val(),
 		TStno: $('#TStno').val(),
 		TSuno: $('#TSuno').val()
 	};
-
-	setObject('AvailabilityData', AvailabilityData);    // store the data locally
-	//var storedData = getObject('AvailabilityData');		// retrieve data
-	//console.log('Arrival Date =', storedData.arrive);	// second check
+	if (validateBookingEnquiry(enquiry, 'msg')) {
+		postBookingDetails(enquiry, 'msg');
+	}
 }
 
-function postBookingDetails(disp_id){
-	//Check all fields are populated
+function onSubmitMobileForm() {
+	var enquiry = {
+		arrival: $('#arrive-mob').val(),
+		departure: $('#departure-mob').val(),
+		DStno: $('#DStno-mob').val(),
+		DSuno: $('#DSuno-mob').val(),
+		TStno: $('#TStno-mob').val(),
+		TSuno: $('#TSuno-mob').val()
+	};
+	if (validateBookingEnquiry(enquiry, 'res-mob')) {
+		postBookingDetails(enquiry, 'res-mob');
+	}
+}
 
-
-	//Check validity of fields
-	var arrival = $('#arrive').val();
-	var departure = $('#departure').val();
-	if (arrival === "")
+function validateBookingEnquiry(enquiry, disp_id) {
+	if (enquiry.arrival === "")
 	{
 		$('#'+disp_id).text("Please enter date of arrival");
-		return;
+		return false;
 	}
-	if (departure === "")
+	if (enquiry.departure === "")
 	{
 		$('#'+disp_id).text("Please enter date of departure");
-		return;
+		return false;
 	}
-	if (arrival >= departure)
+	if (enquiry.arrival >= enquiry.departure)
 	{
 		$('#'+disp_id).text("Arrival date must be earlier than departure");
-		return;
+		return false;
 	}
-	if ($('#DStno').val() + $('#DSuno').val() + $('#TStno').val() + $('#TSuno').val() < 1)
+	if (enquiry.DStno + enquiry.DSuno + enquiry.TStno + enquiry.TSuno < 1)
 	{
 		$('#'+disp_id).text("At least one room must be selected");
-		return;
+		return false;
 	}
+	return true;
+}
 
+function postBookingDetails(enquiry, disp_id) {
 	var storedData;
-    saveForm();
+    saveForm(enquiry);
     storedData = getObject('AvailabilityData');
 	post('/get_form', storedData, disp_id);
 }
+
 
 // submit data for storage using AJAX
 function post(path, data, disp_id) {

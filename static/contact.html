@@ -158,16 +158,18 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm">
-                                                    Arrival Date <input type="date" id="arrive-mob" size="20">
+                                                    <label for="arrive-mob" >Arrival (DD/MM/YYYY)</label>
+                                                    <input type="date" id="arrive-mob" class="form-control"  size="20">
                                                 </div>
                                                 <div class="col-sm">
-                                                    Departure Date <input type ="date" id="departure-mob" size="20">
+                                                    <label for="departure-mob" >Departure (DD/MM/YYYY)</label>
+                                                    <input type ="date" id="departure-mob" class="form-control"   size="20">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm">
-                                                    <h5>Double Standard</h5>
-                                                    <select size="1" id="DStno-mob">
+                                                    <label for="DStno-mob" >Double Standard</label>
+                                                    <select size="1" id="DStno-mob" class="custom-select">
                                                         <option value="0" selected>0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -179,8 +181,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-sm">
-                                                    <h5>Double Superior</h5>
-                                                    <select size="1" id="DSuno-mob">
+                                                    <label for="DSuno-mob" >Double Superior</label>
+                                                    <select size="1" id="DSuno-mob" class="custom-select">
                                                         <option value="0" selected>0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -194,8 +196,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-sm">
-                                                    <h5>Twin Standard</h5>
-                                                    <select size="1" id="TStno-mob">
+                                                    <label for="TStno-mob" >Twin Standard</label>
+                                                    <select size="1" id="TStno-mob" class="custom-select">
                                                         <option value="0" selected>0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -207,8 +209,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-sm">
-                                                    <h5>Twin Superior</h5>
-                                                    <select size="1" id="TSuno-mob">
+                                                    <label for="TSuno-mob" >Twin Superior</label>
+                                                    <select size="1" id="TSuno-mob" class="custom-select">
                                                         <option value="0" selected>0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -225,7 +227,7 @@
 
                                             <div class="row">
                                                 <div class="col-sm">
-                                                    <input type="button" value="Check Availability" class="btn" id="submit_button-mob" onclick="postBookingDetails('res-mob')">
+                                                    <input type="button" value="Check Availability" class="btn" id="submit_button-mob" onclick="onSubmitMobileForm()">
                                                 </div>
                                                 <div class="col-sm">
                                                     <input type="reset" value="Reset" class="btn" id="reset_button-mob">
