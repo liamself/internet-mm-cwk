@@ -29,6 +29,28 @@ expressApp.post('/get_booking', function(req, res) {
     });
 });
 
+expressApp.post('/check_out_all', function(req, res) {
+    var bRef = '';
+    req.on('data', function (data) {
+        bRef += data;
+    }).on('end', async function () {
+        console.log("bRef: " + bRef);
+        var result = await checkOutRooms(bRef);
+        res.end(result);
+    });
+});
+
+expressApp.post('/check_in_all', function(req, res) {
+    var bRef = '';
+    req.on('data', function (data) {
+        bRef += data;
+    }).on('end', async function () {
+        console.log("bRef: " + bRef);
+        var result = await checkInRooms(bRef);
+        res.end(result);
+    });
+});
+
 expressApp.post('/admin_payment_details', function(req, res) {
     var body = '';
     req.on('data', function (data) {
@@ -348,7 +370,7 @@ expressApp.post('/change_status', function(req, res) {
         var roomId = json.roomID;
         var status = json.status;
 
-        const text = "UPDATE hotelbooking.room SET r_status = $1 WHERE r_no = $2 RETURNING *;";
+        const text = "UPDATE room SET r_status = $1 WHERE r_no = $2 RETURNING *;";
         const values = [status, roomId];
 
         // here we execute the data insertion command
@@ -368,7 +390,7 @@ async function getBookingDetails(bRef) {
         "JOIN roombooking ON room.r_no=roombooking.r_no\n" +
         "JOIN booking ON roombooking.b_ref=booking.b_ref\n" +
         "JOIN customer ON customer.c_no=booking.c_no\n" +
-        "WHERE booking.b_ref=" + bRef + ";");
+        "WHERE booking.b_ref=" + bRef + " ORDER BY r_no;");
 }
 
 async function getPaymentDetails(bRef) {
@@ -385,8 +407,16 @@ async function getBooking(bRef) {
     return await queryDB("SELECT * FROM booking WHERE b_ref='" + bRef + "';");
 }
 
+async function checkOutRooms(bRef) {
+    return await queryDB("UPDATE room SET r_status = 'C' WHERE r_no IN (SELECT r_no FROM roombooking WHERE b_ref = " + bRef + " AND r_status = 'O');");
+}
+async function checkInRooms(bRef) {
+    return await queryDB("UPDATE room SET r_status = 'O' WHERE r_no IN (SELECT r_no FROM roombooking WHERE b_ref = " + bRef + " AND r_status = 'A');");
+}
+
 async function queryDB(query, client) {
     var _client;
+    console.log("Query: " + query);
     if (client == null) _client = await getConnection();
     await _client.query("SET search_path TO 'hotelbooking';");
     const result = await _client.query(query);
@@ -401,6 +431,7 @@ async function queryDBWithValues(query, values, client) {
         _client = await getConnection();
     }
     await _client.query("SET search_path TO 'hotelbooking';");
+    console.log("Query: " + query + ", " + values);
     const result = await _client.query(query, values);
     var rows = result.rows;
     if (client === null) await _client.end();
