@@ -130,5 +130,5 @@ bookingDetails = function() { //Wrap in function to avoid global variables
         onclickCheckInAll: onClickCheckInAll,
         checkInRoom: checkInRoom,
         checkOutRoom: checkOutRoom
-    }
+    };
 }();

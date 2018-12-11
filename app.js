@@ -63,6 +63,28 @@ expressApp.post('/admin_payment_details', function(req, res) {
     });
 });
 
+expressApp.post('/update_price', function(req, res) {
+    var body = "";
+    req.on('data', function (data) {
+        body = data;
+    }).on('end', async function() {
+        var json = JSON.parse(body);
+        var result = await updatePrice(json.bRef, json.outstanding);
+        res.end(result);
+    });
+});
+
+expressApp.post("/process_payment", function(req, res) {
+    var body = "";
+    req.on('data', function (data) {
+        body = data;
+    }).on('end', async function() {
+        var json = JSON.parse(body);
+        var result = await processPayment(json.bRef);
+        res.end(result);
+    });
+});
+
 expressApp.post('/admin_booking_details', function(req, res) {
     var body = '';
     req.on('data', function (data) {
@@ -398,11 +420,6 @@ async function getPaymentDetails(bRef) {
         "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";");
 }
 
-async function processPayment(bRef) {
-    return await queryDB("SELECT customer.c_no, c_name, c_cardtype, c_cardexp, c_cardno, b_ref,  b_cost, b_outstanding\n" +
-        "FROM customer, booking WHERE customer.c_no=booking.c_no AND b_ref=" + bRef + ";");
-}
-
 async function getBooking(bRef) {
     return await queryDB("SELECT * FROM booking WHERE b_ref='" + bRef + "';");
 }
@@ -414,6 +431,16 @@ async function checkInRooms(bRef) {
     return await queryDBWithValues("UPDATE room SET r_status = 'O' WHERE r_no IN (SELECT r_no FROM roombooking WHERE b_ref = $1 AND r_status = 'A');", [bRef]);
 }
 
+async function updatePrice(bRef, newPrice) {
+    console.log("New Price: " + newPrice);
+    await queryDBWithValues("UPDATE booking SET b_outstanding = (b_outstanding + ($1 - b_cost)) WHERE b_ref=$2;", [newPrice, bRef]);
+    return await queryDBWithValues("UPDATE booking SET b_cost = $1 WHERE b_ref= $2 RETURNING *;", [newPrice, bRef]);
+}
+
+async function processPayment(bRef) {
+    return await queryDBWithValues("UPDATE booking SET b_outstanding = 0 WHERE b_ref = $1", [bRef]);
+}
+
 async function queryDB(query, client) {
     var _client;
     console.log("Query: " + query);
@@ -421,7 +448,7 @@ async function queryDB(query, client) {
     await _client.query("SET search_path TO 'hotelbooking';");
     const result = await _client.query(query);
     var rows = result.rows;
-    if (client === null) await _client.end();
+    if (client == null) await _client.end();
     return JSON.stringify(rows);
 }
 
@@ -434,7 +461,7 @@ async function queryDBWithValues(query, values, client) {
     console.log("Query: " + query + ", " + values);
     const result = await _client.query(query, values);
     var rows = result.rows;
-    if (client === null) await _client.end();
+    if (client == null) await _client.end();
     return JSON.stringify(rows);
 }
 

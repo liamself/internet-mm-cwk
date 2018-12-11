@@ -40,7 +40,7 @@
         <h2>Charges</h2>
         <p>Current outstanding: £<span id="outstanding"></span></p>
         <p><label for="extras">Additional services (food, drink etc) £</label><input type="number"  step=".01" id="extras"/></p>
-        <a class="btn btn-primary" onclick="updatePrice()">Update</a>
+        <a class="btn btn-primary" onclick="payment.updatePrice()">Update</a>
         <p>Total Outstanding: £<span id="total"></span></p>
 
         <h2>Payment Details</h2>
@@ -48,7 +48,7 @@
         <p>Card Expiry: <span id="cardexp"></span></p>
         <p>Card Type: <span id="cardtype"></span></p>
 
-        <a class="btn btn-primary">Make Payment</a>
+        <a class="btn btn-primary" onclick="payment.processPayment()">Make Payment</a>
     </div>
 
 
