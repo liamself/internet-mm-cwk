@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var bookingData = getObject('AvailabilityData');
-	$("#checkin").text(bookingData.arrive);
+	$("#checkin").text(bookingData.arrival);
 	$("#checkout").text(bookingData.departure);
 	var DStnoCost = (65 * bookingData.DStno);
 	var DSunoCost = (77 * bookingData.DSuno);

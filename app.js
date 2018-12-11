@@ -206,7 +206,7 @@ expressApp.post('/process_booking', function(req, res) {
     });
     req.on('end', async function () {
         console.log("Body: " + body);
-        var json = JSON.parse(body)
+        var json = JSON.parse(body);
         console.log(json);
         const {Client} = require('pg');
         const connectionString = 'postgresql://groupdk:groupdk@cmp-18stunode.cmp.uea.ac.uk/groupdk';
@@ -214,7 +214,7 @@ expressApp.post('/process_booking', function(req, res) {
         await client.connect();
         // Check Availability SQL Queries
         var check_1;
-        var check1 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_d'", [json.availabilityData.arrive, json.availabilityData.departure]);
+        var check1 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_d'", [json.availabilityData.arrival, json.availabilityData.departure]);
 
         const check_1_rows = check1.rows;
 
@@ -223,7 +223,7 @@ expressApp.post('/process_booking', function(req, res) {
         }
 
         var check_2;
-        var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_d'", [json.availabilityData.arrive, json.availabilityData.departure]);
+        var check2 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_d'", [json.availabilityData.arrival, json.availabilityData.departure]);
 
         const check_2_rows = check2.rows;
 
@@ -232,7 +232,7 @@ expressApp.post('/process_booking', function(req, res) {
         }
 
         var check_3;
-        var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_t'", [json.availabilityData.arrive, json.availabilityData.departure]);
+        var check3 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_t'", [json.availabilityData.arrival, json.availabilityData.departure]);
 
         const check_3_rows = check3.rows;
 
@@ -241,7 +241,7 @@ expressApp.post('/process_booking', function(req, res) {
         }
 
         var check_4;
-        var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_t'", [json.availabilityData.arrive, json.availabilityData.departure]);
+        var check4 = await client.query("SELECT COUNT(*) from hotelbooking.room WHERE r_no NOT IN(SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_t'", [json.availabilityData.arrival, json.availabilityData.departure]);
 
         const check_4_rows = check4.rows;
 
@@ -287,7 +287,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 var roomtype_1_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_d' limit $3";
 
-                const room_type_1 = await client.query(roomtype_1_query, [json.availabilityData.arrive, json.availabilityData.departure, json.availabilityData.DStno]);
+                const room_type_1 = await client.query(roomtype_1_query, [json.availabilityData.arrival, json.availabilityData.departure, json.availabilityData.DStno]);
                 const{rows} = room_type_1;
 
                 for (let i = 0; i< rows.length; i++){
@@ -297,7 +297,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 for (let i = 0; i< room_type_1_list.length; i++){
 
-                    const res1 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_1_list[i], bookingref, json.availabilityData.arrive, json.availabilityData.departure]);
+                    const res1 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_1_list[i], bookingref, json.availabilityData.arrival, json.availabilityData.departure]);
                 }
             }
 
@@ -305,7 +305,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 var roomtype_2_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_d' limit $3";
 
-                const room_type_2 = await client.query(roomtype_2_query, [json.availabilityData.arrive, json.availabilityData.departure, json.availabilityData.DSuno]);
+                const room_type_2 = await client.query(roomtype_2_query, [json.availabilityData.arrival, json.availabilityData.departure, json.availabilityData.DSuno]);
                 const{rows} = room_type_2;
 
                 for (let i = 0; i< rows.length; i++){
@@ -315,7 +315,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 for (let i = 0; i< room_type_2_list.length; i++){
 
-                    const res2 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_2_list[i], bookingref, json.availabilityData.arrive, json.availabilityData.departure]);
+                    const res2 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_2_list[i], bookingref, json.availabilityData.arrival, json.availabilityData.departure]);
                 }
             }
 
@@ -323,7 +323,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 var roomtype_3_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'std_t' limit $3";
 
-                const room_type_3 = await client.query(roomtype_3_query, [json.availabilityData.arrive, json.availabilityData.departure, json.availabilityData.TStno]);
+                const room_type_3 = await client.query(roomtype_3_query, [json.availabilityData.arrival, json.availabilityData.departure, json.availabilityData.TStno]);
                 const{rows} = room_type_3;
 
                 for (let i = 0; i< rows.length; i++){
@@ -333,7 +333,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 for (let i = 0; i< room_type_3_list.length; i++){
 
-                    const res3 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_3_list[i], bookingref, json.availabilityData.arrive, json.availabilityData.departure]);
+                    const res3 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_3_list[i], bookingref, json.availabilityData.arrival, json.availabilityData.departure]);
                 }
             }
 
@@ -341,7 +341,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 var roomtype_4_query = "SELECT r_no from hotelbooking.room WHERE r_no NOT IN (SELECT r_no FROM hotelbooking.roombooking WHERE checkin >= $1 AND checkout <= $2) AND r_class = 'sup_t' limit $3";
 
-                const room_type_4 = await client.query(roomtype_4_query, [json.availabilityData.arrive, json.availabilityData.departure, json.availabilityData.TSuno]);
+                const room_type_4 = await client.query(roomtype_4_query, [json.availabilityData.arrival, json.availabilityData.departure, json.availabilityData.TSuno]);
                 const{rows} = room_type_4;
 
                 for (let i = 0; i< rows.length; i++){
@@ -351,7 +351,7 @@ expressApp.post('/process_booking', function(req, res) {
 
                 for (let i = 0; i< room_type_4_list.length; i++){
 
-                    const res4 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_4_list[i], bookingref, json.availabilityData.arrive, json.availabilityData.departure]);
+                    const res4 = await client.query("INSERT INTO hotelbooking.roombooking(r_no, b_ref, checkin, checkout) VALUES($1, $2, $3, $4)", [room_type_4_list[i], bookingref, json.availabilityData.arrival, json.availabilityData.departure]);
                 }
             }
 
