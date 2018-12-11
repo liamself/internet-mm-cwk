@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="gallery.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Local Attractions | Bishy Barnaby Hotel</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index">
+        <img id="hotel-logo" src="img/logo_horizontal.png" alt="Bishy Barnabee Hotel logo"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="room.html">Our Rooms</a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" href="facilities.html">Facilities</a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" href="local-attractions.html">Local Attractions</a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="content">
+    <img src="img/hotel.jpeg"  id="bannerimg" class="img-responsive" alt="Bcishy Barnarby Hotel">
+    <div class="container-fluid" id="form-container-outer">
+        <!-- Desktop form -->
+        <div class="d-none d-sm-block">
+            <div id="form-div" class="container-fluid">
+                <form id="booking-form">
+                    <div class="form-group">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label for="arrive" >Arrival (DD/MM/YYYY)</label>
+                                    <input type="date" id="arrive" class="form-control" placeholder="DD/MM/YYYY" size="20">
+                                </div>
+                                <div class="col-sm">
+                                    <label for="departure" >Departure (DD/MM/YYYY)</label>
+                                    <input type ="date" id="departure" class="form-control" placeholder="DD/MM/YYYY"  size="20">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label for="DStno" >Double Standard</label>
+                                    <select size="1" id="DStno" class="custom-select">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="DSuno" >Double Superior</label>
+                                    <select size="1" id="DSuno" class="custom-select">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="TStno" >Twin Standard</label>
+                                    <select size="1" id="TStno" class="custom-select">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="TSuno" >Twin Superior</label>
+                                    <select size="1" id="TSuno" class="custom-select">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('msg')">
+                                </div>
+                                <div class="col-sm">
+                                    <input type="reset" value="Reset" class="btn" id="reset_button">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <p id="msg"></p>
+            </div>
+        </div>
+       <!-- Mobile form -->
+        <div class="d-block d-sm-none">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Book now
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <div id="form-div-mob" class="container-fluid">
+                                <form id="booking-form-mob">
+                                    <div class="form-group">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    Arrival Date <input type="date" id="arrive-mob" size="20">
+                                                </div>
+                                                <div class="col-sm">
+                                                    Departure Date <input type ="date" id="departure-mob" size="20">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <h5>Double Standard</h5>
+                                                    <select size="1" id="DStno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <h5>Double Superior</h5>
+                                                    <select size="1" id="DSuno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <h5>Twin Standard</h5>
+                                                    <select size="1" id="TStno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <h5>Twin Superior</h5>
+                                                    <select size="1" id="TSuno-mob">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <input type="button" value="Check Availability" class="btn" id="submit_button-mob" onclick="postBookingDetails('res-mob')">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <input type="reset" value="Reset" class="btn" id="reset_button-mob">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <p id="res-mob"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<h1>Rooms</h1>
+
+<p>Our rooms provide a relaxing and warm space, full of character and charm. We pride ourselves on our quintessentially English aesthetics and cleanliness. Enjoy the best night's sleep in Norwich and wake up to a spectacular home-cooked style breakfast made from locally-sourced ingredients.</p> 
+
+<p>All of our rooms have air-conditioning and are ensuite, complete with bath and shower.</p> 
+
+<h2>Double Standard & Twin Standard</h2>
+
+
+<ul div class="list">
+<h3>Room Includes</h3>
+<li>Complimentary WiFi</li>
+<li>Flat Screen TV</li>
+<li>Ironing Station</li>
+<li>Hairdryer</li>
+<li>Toiletries</li>
+<li>Direct Dial Phone</li>
+<li>Tea and Coffee Making Facilities</li> 
+<li>Writing Desk</li>
+</ul>
+
+<h2>Double Superior & Twin Superior</h2>
+
+
+<ul div class="list">
+<h3>Room Includes</h3>
+<li>Complimentary WiFi</li>
+<li>Flat Screen TV</li>
+<li>IPad</li>
+<li>Ironing Station</li>
+<li>Hairdryer</li>
+<li>Upgraded Toiletries</li>
+<li>Bathrobe and Slippers</li>
+<li>Direct Dial Phone</li>
+<li>Mini Bar</li>
+<li>Tea and Coffee Making Facilities</li> 
+<li>Writing Desk</li>
+</ul>
+
+
+		
+		<p div class = "image_block">
+		<a id="roomimages">
+		<img src="images/room1.jpg" alt="rooms"/>
+		</a> 
+		</p>
+<p>		
+<button id="galleryButtonP" onclick="changePicP()">Previous Image</button>
+
+<button id="galleryButtonN" onclick="changePicN()">Next Image</button>
+</p>
+
+<div class="footer">
+ <H3>
+	Bishee Barnaby Hotel
+</H3>
+<P>
+	<a class="footer-link" href="index.html">Home Page</a>
+	<a class="footer-link" href="about.html">About Us</a>
+	<a class="footer-link" href="room.html">Rooms</a>
+	<a class="footer-link" href="facilities.html">Facilities</a>
+	<a class="footer-link" href="local-attractions.html">Local Attractions</a>
+	<a class="footer-link" href="contact.html">Contact Us</a>
+	<a class="footer-link" href="sitemap.html">Sitemap</a>
+ </p>
+</div>
+
+</body>
+</html>

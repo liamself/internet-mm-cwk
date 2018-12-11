@@ -11,10 +11,19 @@
   object-fit:cover;
 }
 
-
 #form-div {
   background-color:rgb(240,240,240);
   padding:10px;
+}
+
+.list {
+	text-align:center;
+	list-style-type: none;
+}
+
+p {
+	text-align:center;
+	margin: 25px;
 }
 
 h1 {
@@ -22,6 +31,37 @@ h1 {
   font-weight: 900;
   text-transform: uppercase;
   text-align:center;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  color:rgb(247,50,52);
+  text-transform: uppercase;
+  text-align:center;
+}
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align:center;
+}
+
+#galleryButtonP {
+	border-radius: 12px;
+	padding: 8px;
+	font-size: 12px;
+	background-color: black;
+	color:white;
+}
+
+#galleryButtonN{
+	border-radius: 12px;
+	padding: 8px;
+	font-size: 12px;
+	background-color: black;
+	color:white;
 }
 
 
@@ -33,6 +73,22 @@ tr .unavailable {
   background-color: red;
 }
 
+.image_block {
+	width: 500px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#roomimages {
+	display: block;
+	object-fit: none;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 
 #facilitiesimg{
@@ -42,4 +98,32 @@ tr .unavailable {
 	margin-left: auto;
 	margin-right: auto;
 }
-=======
+
+a.sitemap-link{
+	color: black;
+	text-decoration: none;
+	font-size: 25px;
+	padding: 14px 25px;
+	display: inline-block;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(247,50,52);
+  color: white;
+  text-align: center;
+}
+
+a.footer-link{
+	color: white;
+	padding: 6px;
+}
+
+#map{
+height: 500px; 
+width: 100%;  
+}
+
