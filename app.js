@@ -153,7 +153,7 @@ expressApp.post('/get_rooms', function(req, res) {
         res.end(await queryDB('SELECT r_no, r_status FROM room ORDER BY r_no;'));
     });
 });
-expressApp.post('/get_booking', function(req, res) {
+expressApp.post('/process_booking', function(req, res) {
     var body = "";
     req.on('data', function (data) {
         console.log(data);
