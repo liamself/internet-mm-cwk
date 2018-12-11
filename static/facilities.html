@@ -13,7 +13,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index">
-        <img id="hotel-logo" src="img/logo_horizontal.png" alt="Bishy Barnabee Hotel logo"/>
+        <img id="hotel-logo" src="img/logo_horizontal.png" href="/" alt="Bishy Barnabee Hotel logo"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -53,16 +53,18 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm">
-                                    Arrival Date <input type="date" id="arrive" size="20">
+                                    <label for="arrive" >Arrival (DD/MM/YYYY)</label>
+                                    <input type="date" id="arrive" class="form-control" placeholder="DD/MM/YYYY" size="20">
                                 </div>
                                 <div class="col-sm">
-                                    Departure Date <input type ="date" id="departure" size="20">
+                                    <label for="departure" >Departure (DD/MM/YYYY)</label>
+                                    <input type ="date" id="departure" class="form-control" placeholder="DD/MM/YYYY"  size="20">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Double Standard</h5>
-                                    <select size="1" id="DStno">
+                                    <label for="DStno" >Double Standard</label>
+                                    <select size="1" id="DStno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -74,8 +76,8 @@
                                     </select>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Double Superior</h5>
-                                    <select size="1" id="DSuno">
+                                    <label for="DSuno" >Double Superior</label>
+                                    <select size="1" id="DSuno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -89,8 +91,8 @@
                                     </select>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Twin Standard</h5>
-                                    <select size="1" id="TStno">
+                                    <label for="TStno" >Twin Standard</label>
+                                    <select size="1" id="TStno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -102,8 +104,8 @@
                                     </select>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Twin Superior</h5>
-                                    <select size="1" id="TSuno">
+                                    <label for="TSuno" >Twin Superior</label>
+                                    <select size="1" id="TSuno" class="custom-select">
                                         <option value="0" selected>0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -117,17 +119,18 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm">
-                                    <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('res')">
-                                </div><div class="col-sm">
-                                <input type="reset" value="Reset" class="btn" id="reset_button">
-                            </div>
+                                    <input type="button" value="Check Availability" class="btn" id="submit_button" onclick="postBookingDetails('msg')">
+                                </div>
+                                <div class="col-sm">
+                                    <input type="reset" value="Reset" class="btn" id="reset_button">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
+                <p id="msg"></p>
             </div>
         </div>
        <!-- Mobile form -->

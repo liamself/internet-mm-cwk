@@ -107,14 +107,23 @@ a.sitemap-link{
 	display: inline-block;
 }
 
+#content {
+	margin-bottom: 110px;
+}
+
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: rgb(247,50,52);
-  color: white;
-  text-align: center;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: rgb(247,50,52);
+	color: white;
+	text-align: center;
+	height:100px;
+}
+
+.footer p {
+	margin: 10px;
 }
 
 a.footer-link{
