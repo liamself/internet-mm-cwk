@@ -42,12 +42,52 @@
     </div>
 </nav>
 <div id="content" >
-    <h1>Room Occupancy</h1>
     <div class="container">
-        <form>
-            <di
-        </form>
+        <h1>Reports</h1>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="room-occupancy-tab" data-toggle="tab" href="#room-occupancy" role="tab" aria-controls="room-occupancy" aria-selected="true">Room Occupancy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="false">Sales</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="room-occupancy" role="tabpanel" aria-labelledby="room-occupancy-tab">
+                <form>
+                    <div class="form-group">
+                        <label for="date-from">Date from</label>
+                        <input type="date" class="form-control" id="date-from" />
+                    </div>
+                    <div class="form-group">
+                        <label for="date-to">Date to</label>
+                        <input type="date" class="form-control" id="date-to" />
+                    </div>
+                    <div class="form-group">
+                        <p id="errorMsg"></p>
+                        <a class="btn btn-primary" onclick="generateReport()">Submit</a>
+                    </div>
+                </form>
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th scope="col">Room No</th>
+                        <th scope="col">Room Type</th>
+                        <th scope="col">Occupied by</th>
+                        <th scope="col">Arriving</th>
+                        <th scope="col">Departing</th>
+                    </tr>
+                    </thead>
+                    <tbody id="room-breakdown-table">
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">...</div>
+        </div>
     </div>
+
+
+
 </div>
 
 
@@ -57,5 +97,6 @@
 <script src="js/bootstrap.min.js"></script>
 <!-- Main -->
 <script src="js/main.js"></script>
+<script src="js/occupancyReport.js"></script>
 </body>
 </html>
