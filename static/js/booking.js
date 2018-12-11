@@ -2,6 +2,14 @@ $(document).ready(function() {
 	var bookingData = getObject('AvailabilityData');
 	$("#checkin").text(bookingData.arrive);
 	$("#checkout").text(bookingData.departure);
+	var DStnoCost = (65 * bookingData.DStno);
+	var DSunoCost = (77 * bookingData.DSuno);
+	var TStunoCost = (62 * bookingData.TStno);
+	var TSunoCost = (75 * bookingData.TSuno);
+	var total = DStnoCost + DSunoCost + TStunoCost + TSunoCost;
+	$("#costs").text(total);
+	$("#checkin").text(bookingData.arrive);
+	$("#checkout").text(bookingData.departure);
 	if (bookingData.DStno > 0) {
 		$('#stdD').text(bookingData.DStno);
 	} else $('#stdD-p').hide();

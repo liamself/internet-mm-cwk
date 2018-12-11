@@ -35,6 +35,16 @@ function postBookingDetails(disp_id){
 		$('#'+disp_id).text("Arrival date must be earlier than departure");
 		return;
 	}
+	
+	var today = new Date();
+	var arrive = new Date(arrival);
+	
+	if (arrive < today)
+	{
+		$('#'+disp_id).text("Arrival date must be today or later");
+		return;
+	}
+	
 	if ($('#DStno').val() + $('#DSuno').val() + $('#TStno').val() + $('#TSuno').val() < 1)
 	{
 		$('#'+disp_id).text("At least one room must be selected");
