@@ -63,7 +63,6 @@ function postBookingDetails(enquiry, disp_id) {
 	post('/get_form', storedData, disp_id);
 }
 
-
 // submit data for storage using AJAX
 function post(path, data, disp_id) {
 
