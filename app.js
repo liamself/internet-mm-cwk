@@ -29,6 +29,16 @@ expressApp.post('/occupancy_report', function(req, res) {
     })
 });
 
+expressApp.post('/sales_report', function(req, res) {
+    var body = "";
+    req.on('data', function(data) {
+        body = JSON.parse(data);
+    }).on('end', async function() {
+        var report = await generateSalesReport(body.dateFrom, body.dateTo);
+        res.end(report);
+    })
+});
+
 expressApp.post('/get_booking', function(req, res) {
     var bRef = "";
     req.on('data', function(data) {
@@ -449,6 +459,10 @@ async function updatePrice(bRef, newPrice) {
 
 async function generateOccupancyReport(dateFrom, dateTo) {
     return await queryDBWithValues("SELECT room.r_no, room.r_class, c_name, checkin, checkout  FROM room, roombooking, booking, customer WHERE room.r_no=roombooking.r_no AND roombooking.b_ref=booking.b_ref AND booking.c_no = customer.c_no AND checkin >= $1 AND checkout <= $2 ORDER BY room.r_no, checkin;", [dateFrom, dateTo]);
+}
+
+async function generateSalesReport(dateFrom, dateTo) {
+    return await queryDBWithValues("SELECT * FROM (SELECT DISTINCT booking.b_ref, checkout, b_cost FROM booking, roombooking WHERE roombooking.b_ref=booking.b_ref AND  checkin >= $1 AND checkout <= $2) AS report ORDER BY checkout;", [dateFrom, dateTo]);
 }
 
 async function processPayment(bRef) {

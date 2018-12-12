@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=0.75"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/moment.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style.css">
@@ -43,6 +44,7 @@
 </nav>
 <div id="content" >
     <div class="container">
+        <a href="admin.html" class="btn btn-primary">Back</a>
         <h1>Reports</h1>
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
@@ -60,14 +62,21 @@
                         <input type="date" class="form-control" id="date-from" />
                     </div>
                     <div class="form-group">
+                        <a class="btn btn-light" onclick="occupancy1Week()">1 week</a>
+                        <a class="btn btn-light" onclick="occupancy2Weeks()">2 weeks</a>
+                        <a class="btn btn-light" onclick="occupancy1Month()">1 month</a>
+                        <a class="btn btn-light" onclick="occupancy1Year()">1 year</a>
+                    </div>
+                    <div class="form-group">
                         <label for="date-to">Date to</label>
                         <input type="date" class="form-control" id="date-to" />
                     </div>
                     <div class="form-group">
                         <p id="errorMsg"></p>
-                        <a class="btn btn-primary" onclick="generateReport()">Submit</a>
+                        <a class="btn btn-primary" onclick="generateOccupancyReport()">Submit</a>
                     </div>
                 </form>
+                <h2>Room Occupancy Report</h2>
                 <table class="table" >
                     <thead>
                     <tr>
@@ -82,12 +91,45 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">...</div>
+            <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+                <form>
+                    <div class="form-group">
+                        <label for="date-from">Date from</label>
+                        <input type="date" class="form-control" id="sales-date-from" />
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-light" onclick="sales1Week()">1 week</a>
+                        <a class="btn btn-light" onclick="sales2Weeks()">2 weeks</a>
+                        <a class="btn btn-light" onclick="sales1Month()">1 month</a>
+                        <a class="btn btn-light" onclick="sales1Year()">1 year</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="date-to">Date to</label>
+                        <input type="date" class="form-control" id="sales-date-to" />
+                    </div>
+                    <div class="form-group">
+                        <p id="salesErrorMsg"></p>
+                        <a class="btn btn-primary" onclick="generateSalesReport()">Submit</a>
+                    </div>
+                </form>
+                <h2>Summary</h2>
+                <p>Total sales in period: <span id="total-sales"></span></p>
+                <p>Total bookings: <span id="total-bookings"></span></p>
+                <h2>Breakdown by booking</h2>
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th scope="col">Booking ref</th>
+                        <th scope="col">Checkout date</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody id="sales-table">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-
-
 </div>
 
 
@@ -97,6 +139,6 @@
 <script src="js/bootstrap.min.js"></script>
 <!-- Main -->
 <script src="js/main.js"></script>
-<script src="js/occupancyReport.js"></script>
+<script src="js/reports.js"></script>
 </body>
 </html>
