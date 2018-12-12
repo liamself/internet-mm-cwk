@@ -31,7 +31,7 @@ $(document).ready(function() {
     case "V":
         cardtype = "Visa";
         break;
-    case "M":
+    case "MC":
         cardtype = "Mastercard";
         break;
     case "A":

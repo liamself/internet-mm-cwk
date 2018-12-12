@@ -153,3 +153,7 @@ a.footer-link{
 .ul-centre {
 	display:inline-block;
 }
+
+.admin-card {
+	width: 18rem;
+}
