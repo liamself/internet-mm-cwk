@@ -96,8 +96,8 @@ bookingDetails = function() { //Wrap in function to avoid global variables
                 row.append($("<td/>").text(r.r_no));
                 row.append($("<td/>").text(roomClassToString(r.r_class)));
                 row.append($("<td/>").text(r.r_status));
-                row.append($("<td/>").text(r.checkin));
-                row.append($("<td/>").text(r.checkout));
+                row.append($("<td/>").text(date_ddmmyyyy(r.checkin)));
+                row.append($("<td/>").text(date_ddmmyyyy(r.checkout)));
                 row.append($("<td/>").text(r.r_notes));
 
                 //Get correct button

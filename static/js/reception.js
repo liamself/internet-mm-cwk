@@ -18,8 +18,8 @@ function receptionBookingRefresh()
                 var row = $("<tr/>");
                 row.append($("<td/>").text(r.b_ref));
                 row.append($("<td/>").text(r.c_name));
-                row.append($("<td/>").text(r.checkin));
-                row.append($("<td/>").text(r.checkout));
+                row.append($("<td/>").text(date_ddmmyyyy(r.checkin)));
+                row.append($("<td/>").text(date_ddmmyyyy(r.checkout)));
 
                 var roomBtn = $('<button />', {
                     class: 'btn btn-light',
