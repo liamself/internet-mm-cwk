@@ -44,10 +44,36 @@
 </nav>
 
     <div id="content">
-        <h1>Your booking has been confirmed!</h1>
-        <h2>Here is a summary of your booking details</h2>
-        <p>Booking reference: <span id="bRef"></span></p>
+        <div class="container">
+            <h1>Your booking has been confirmed!</h1>
+            <h2>Here is a summary of your booking details</h2>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h3>Booking Details</h3>
+                    <p>Booking reference: <span id="bRef"></span></p>
+                    <p>Check-in: <span id="checkin"></span></p>
+                    <p>Check-out: <span id="checkout"></span></p>
+                    <p>Rooms: <span id="rooms"></span></p>
+                    <p>Total Price: <span id="price"></span></p>
+                    <p>Notes: <span id="notes"></span></p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <h3>Personal Details</h3>
+                    <p>Name: <span id="name"></span></p>
+                    <p>Address: <span id="address"></span></p>
+                    <p>Card type: <span id="cardtype"></span></p>
+                    <p>Card ending in: <span id="cardno"></span></p>
+                </div>
+            </div>
+            <h3>Please print or make a note of your booking number when you arrive</h3>
+            <h3>We look forward to welcoming you to the Bishee Barnabee Hotel!</h3>
+            <div class="text-center">
+                <a class="btn btn-lg btn-success" onclick="window.print()">Print</a>
+            </div>
+        </div>
     </div>
+
+
 <div class="footer">
  <H3>
 	Bishee Barnabee Hotel

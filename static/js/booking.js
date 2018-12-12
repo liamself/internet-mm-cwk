@@ -20,6 +20,8 @@ $(document).ready(function() {
 	if (bookingData.TSuno > 0) {
 		$('#supT').text(bookingData.TSuno);
 	} else $('#supT-p').hide();
+
+	setObject('totalPrice', total);
 });
 
 function checkValidity(){
@@ -94,15 +96,6 @@ function post(path, data, disp_id) {
             alert("error");
         }
     });
-}
-
-//change to confirmation page
-
-function showConfirmation(){
-	
-	$('#CustomerDetails').empty();
-	$('#CustomerDetails').append('Thank you for booking! Your Booking Reference is ' + bRef);
-
 }
 
 
