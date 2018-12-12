@@ -149,3 +149,7 @@ a.footer-link{
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.ul-centre {
+	display:inline-block;
+}

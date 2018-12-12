@@ -1,9 +1,11 @@
+//Saves the contents of the form to user storage
 function saveForm(enquiry){
 	setObject('AvailabilityData', enquiry);    // store the data locally
 	//var storedData = getObject('AvailabilityData');		// retrieve data
 	//console.log('Arrival Date =', storedData.arrive);	// second check
 }
 
+//Validates form and submits to server
 function onSubmitBookingForm() {
 	var enquiry = {
 		arrival: $('#arrive').val(),
@@ -18,6 +20,7 @@ function onSubmitBookingForm() {
 	}
 }
 
+//Validates and mobile rollout form
 function onSubmitMobileForm() {
 	var enquiry = {
 		arrival: $('#arrive-mob').val(),
@@ -31,6 +34,7 @@ function onSubmitMobileForm() {
 		postBookingDetails(enquiry, 'res-mob');
 	}
 }
+
 
 function validateBookingEnquiry(enquiry, disp_id) {
 	if (enquiry.arrival === "")

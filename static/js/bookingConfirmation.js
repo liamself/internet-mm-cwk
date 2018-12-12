@@ -9,20 +9,20 @@ $(document).ready(function() {
     $("#notes").text(data.bookingData.b_notes);
 
     //Room breakdown
-    var roomStr="";
+    var roomList=$('#rooms');
+
     if (data.availabilityData.DStno > 0) {
-        roomStr += data.availabilityData.DStno + " Double Standard\n";
+        roomList.append("<li>" + data.availabilityData.DStno + " Double Standard" + "</li>");
     }
     if (data.availabilityData.DSuno > 0) {
-        roomStr += data.availabilityData.DSuno + " Double Superior\n";
+        roomList.append("<li>" + data.availabilityData.DSuno + " Double Superior " + "</li>");
     }
     if (data.availabilityData.TStno > 0) {
-        roomStr += data.availabilityData.TStno + " Twin Standard\n";
+        roomList.append("<li>" + data.availabilityData.TStno + " Twin Standard " + "</li>");
     }
     if (data.availabilityData.TSuno > 0) {
-        roomStr += data.availabilityData.TSuno + " Twin Superior\n";
+        roomList.append("<li>" + data.availabilityData.TSuno + " Twin Superior " + "</li>");
     }
-    $("#rooms").text(roomStr);
 
     $("#name").text(data.bookingData.c_name);
     $("#address").text(data.bookingData.c_address);
